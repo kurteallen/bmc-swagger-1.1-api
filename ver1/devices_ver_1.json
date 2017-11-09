@@ -1,0 +1,317 @@
+{
+
+    "apiVersion": "1.0",
+    "swaggerVersion": "1.1",
+    "basePath": "https://localhost:1611/api/1",
+    "resourcePath": "/devices",
+    "apis": [                
+        {
+            "path": "/devices",
+            "description": "Search Devices",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Search Devices",
+					"notes": "This operation finds specific devices in the Client Management database.",
+                    "responseClass": "DeviceInfo: This class returns the search result for a specific device name pattern within the Client Management database.",
+                    "nickname": "searchDevice",
+                    "parameters": [
+                        {
+                            "name": "source",
+                            "description": "The base that needs to be searched, in this case this is always 'index'.",
+                            "paramType": "query",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "query",
+                            "description": "The complete or partial name of device(s) to be found in the database. The search is case insensitive.",
+                            "paramType": "query",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query",
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/devices/attr",
+            "description": "Create a Device Attribute",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Create a Device Attribute",
+					"notes": "This operation creates a Device Attribute.",
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "createDeviceAttr",
+                    "parameters": [
+                         {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": "true",
+                            "allowMultiple": "false",
+                            "dataType": "DeviceCreateAttribute"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/devices/attr/{attrId}",
+            "description": "Modify a Device Attribute",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Modify a Device Attribute",
+					"notes": "This operation modifies a Device Attribute.",
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "modifyDeviceAttr",
+                    "parameters": [
+                          {
+                            "name": "attrId",
+                            "description": "The unique Client Management database ID of the device attribute. This value is returned by either the GET /object/{objectId}/attrs operation.",
+                            "paramType": "path",                          
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": "true",
+                            "allowMultiple": "false",
+                            "dataType": "DeviceModifyAttribute"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/devices/attr/{attrId}",
+            "description": "Delete a Device Attribute",
+            "operations": [
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete a Device Attribute",
+					"notes": "This operation deletes a Device Attribute.",
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "deleteDeviceAttr",
+                    "parameters": [
+                          {
+                            "name": "attrId",
+                            "description": "The unique Client Management database ID of the device attribute. This value is returned by either the GET /object/{objectId}/attrs operation.",
+                            "paramType": "path",                          
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {        
+        "DeviceInfo": {
+            "id": "DeviceInfo",
+            "description": "This class returns the search result for a specific device name pattern within the Client Management database.",
+            "properties": {
+                "Devices": {
+                    "items": {
+                        "$ref": "Device"
+                    },
+                    "type": "Array"
+                },
+                "Total": {
+                    "type": "int",
+					"description": "The total number of devices found matching the search query."
+                },
+                "Date": {
+                    "type": "int",
+					"description": "The date and time at which the search was executed in its OTC format."
+                },
+                "Status": {
+                    "type": "string",
+					"description": "The current status of the search mechanism in keyword format."
+                },
+                "ErrorCode": {
+                    "type": "int",
+					"description": "The error code returned by the operation if the operation failed or 0 for a successful operation."
+                }
+            }
+        },
+        "IndexContents": {
+            "id": "IndexContents",
+            "description": "This class displays the individual result for a search.",
+            "properties": {
+                "Device": {
+                    "type": "string",
+					"description": "Returns the search result for one specific device."
+                },
+                "Device FAM": {
+                    "type": "string",
+					"description": "Returns the financial search result for one specific device."
+                }
+            }
+        },
+        "Device": {
+            "id": "Device",
+            "description": "This class returns the search result of one specific device with some of its available information. Depending on the type of device and operating system not all of the below listed parameters may be included in the return class.",
+            "properties": {
+                "DeviceNetBIOSName": {
+                    "type": "string",
+					"description": "The NetBIOS name of the client. For managed devices which have Linux or MAC OS as their operating system this entry will not be displayed."
+                },
+                "DeviceIpAddress": {
+                    "type": "string",
+					"description": "The IP address of the device."
+                },
+                "MacAddress": {
+                    "type": "string",
+					"description": "The MAC (hardware) address of the device."
+                },
+                "DeviceName": {
+                    "type": "string",
+					"description": "The name of the device as known in the Client Management database."
+                },
+                "DomainName": {
+                    "type": "string",
+					"description": "The full name of the domain to which device belongs to."
+                },
+                "OperatingSystemName": {
+                    "type": "string",
+					"description": "The name of the operating system installed on the device."
+                },
+                "User": {
+                    "type": "string",
+					"description": "Login name of the current or last user connected to the device."
+                },
+                "SerialNumber": {
+                    "type": "string",
+					"description": "The serial number of the device."
+                },
+                "TopologyType": {
+                    "type": "string",
+					"description": "The topology type of the device, that is, if the managed device is a master, a relay or a simple client. It may also be an unconnected, a scanned, a deprecated or an unknown device."
+                },
+                "ObjectSmallIcon": {
+                    "type": "string",
+					"description": "The name and relative path of the small icon file to be used to represent this device."
+                },
+                "Type": {
+                    "type": "string",
+					"description": "The type of the device, that is, a server, a laptop, a workstation, etc."
+                },
+                "IndexFileHit": {
+                    "type": "string",
+					"description": "Displays how often the search expression was found for the device, for example, Hits: 4, indicates that the search expression was found 4 times in different fields of the device."
+                },
+                "IndexFileScore": {
+                    "type": "string",
+					"description": "Displays the matching percentage of the entered criteria with the search expression found on the device, for example, 100 for a full match (100)."
+                },
+                "IndexContents": {
+                    "items": {
+                        "$ref": "IndexContents"
+                    },
+                    "type": "object"
+                }
+            }
+        },
+        "OperationResult": {
+            "id": "OperationResult",
+            "properties": {                
+                "errorCode": {
+                    "type": "int"
+                }
+            }
+        },
+        "DeviceCreateAttribute": {
+            "id": "DeviceCreateAttribute",
+            "description": "This class provides all the information required when creating a device attribute.",
+            "properties": {
+                "attrName": {
+                    "type": "string",
+                    "description": "The name of attribute."
+                },
+                "attrType": {
+                    "type": "string",
+                    "description": "The data type of attribute. String, Integer, Date, Boolean."
+                },
+                "attrAlias": {
+                    "type": "string",
+                    "description": "The alias under which the new attribute appears in Reports. The default value is the name of the attribute."
+                },
+                "attrNotes": {
+                    "type": "string",
+                    "description": "The notes of the new attribute in the database."
+                },
+                "attrDisplayOrder": {
+                    "type": "int",
+                    "description": "The display order of the attribute in the properties popup of a device. The value should be > 100. The default value is 0 (not visbile)."
+                }
+            }
+        },
+        "DeviceModifyAttribute": {
+            "id": "DeviceModifyAttribute",
+            "description": "This class provides all the information required when modifying a device attribute.",
+            "properties": {
+                "attrAlias": {
+                    "type": "string",
+                    "description": "The alias under which the attribute appears in Reports."
+                },
+                "attrNotes": {
+                    "type": "string",
+                    "description": "The notes of the attribute."
+                },
+                "attrDisplayOrder": {
+                    "type": "int",
+                    "description": "The display order of the attribute in the properties popup of a device. The value should be > 100. The default value is 0 (not visbile)."
+                }
+            }
+        }
+    }
+}

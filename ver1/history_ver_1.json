@@ -1,0 +1,189 @@
+{
+
+    "apiVersion": "1.0",
+    "swaggerVersion": "1.1",
+    "basePath": "https://localhost:1611/api/1",
+    "resourcePath": "/history",
+    "apis": [                
+        {
+            "path": "/history/contexts",
+            "description": "Get external integration logging history",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get external integration logging history",
+					"notes": "This operation recovers the logging data of all operations executed by a specific external integration in Client Management, such as operational rules or remote control sessions.",
+                    "responseClass": "ContextInfo: This class returns the list of logging entries matching the demanded context for a specific external integration.",
+                    "nickname": "getLoggingHistory",
+                    "parameters": [
+                        {
+                            "name": "language",
+                            "description": "The language in which to display the results, which may be either English, American, Francais, Deutsch, Japanese, Espanol or Brasileiro. Select the desired value from the drop-down box.",
+                            "paramType": "query",
+                            "defaultValue": "English",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "English",
+                                    "Espanol",
+                                    "Deutsch",
+                                    "American",
+                                    "Japanese",
+                                    "Francais",
+                                    "Brasileiro"
+                                ]
+                            },
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "externalLogin",
+                            "description": "The login name of the external integration administrator (say, footprint user) who will execute the operation.",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "filterparameter",
+                            "description": "The filter to apply on the context, to filter the log entries for the desired external integration.",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },                        
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. Leave this field empty together with the count field to display all entries.",
+                            "paramType": "query",
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. Leave this field empty together with the offset field to display all entries.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/history/context/{contextIds}",
+            "description": "Delete external integration logging history",
+            "operations": [
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete external integration logging history",
+                    "notes": "This operation deletes specific entries of the logging history of a specific external integration.",
+                    "responseClass": "HistoryOperationResult: This class returns the result of the delete operation for specific log entries.",
+                    "nickname": "deleteLoggingHistory",
+                    "parameters": [
+                        {
+                            "name": "contextIds",
+                            "description": "Comma separated list of  context ids to purge. The unique Client Management database identifier of the logging context(s) to delete. This value is provided by the GET /history/contexts operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": true,
+                            "dataType": "array"
+                        },
+                        {
+                            "name": "externalLogin",
+                            "description": "The login name of the external integration administrator who will execute the operation.",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {        
+        "ContextInfo": {
+            "id": "ContextInfo",
+            "properties": {
+                "Values": {
+                    "items": {
+                        "$ref": "RequestContext"
+                    },
+                    "type": "Array"
+                },
+                "ErrorCode": {
+                    "type": "int",
+                    "description": "The error code of executed operation, 0 when successful."
+                }
+            }
+        },
+        "RequestContext": {
+            "id": "RequestContext",
+            "properties": {
+                "ContextID": {
+                    "type": "int",
+                    "description": "The unique Client Management database identifier of the logging context. This parameter is required by the DELETE /history/context/{contextIds} operation."
+                },
+                "RequestContext": {
+                    "type": "string",
+                    "description": "The request context, i.e, the identifier of the external integration that was provided when the operation on Client Management was executed."
+                },
+                "Context": {
+                    "type": "string",
+                    "description": "The type of the operation for which the log entry was created, for example, operational rule or remote control."
+                },
+                "DeviceName": {
+                    "type": "string",
+                    "description": "The name of the device on which the operation was executed."
+                },
+                "OpRuleName": {
+                    "type": "string",
+                    "description": "The name of the operational rule that was executed."
+                },
+                "ErrorText": {
+                    "type": "string",
+                    "description": "The error text of the operational rule, if one was returned."
+                },
+                "Status": {
+                    "type": "string",
+                    "description": "The execution status of the operational rule that was executed."
+                },
+                "EndTime": {
+                    "type": "string",
+                    "description": "The date and time at which the remote control session ended."
+                },
+                "SessionDuration": {
+                    "type": "int",
+                    "description": "The total number of seconds that the remote control session was open."
+                }
+            }
+        },
+        "HistoryOperationResult": {
+            "id": "HistoryOperationResult",
+            "properties": {
+                "ErrorCode": {
+                    "type": "int",
+                    "description": "The error code of executed operation, 0 when successful."
+                }
+            }
+        }
+    }
+}

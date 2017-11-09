@@ -1,0 +1,65 @@
+{
+    "apiVersion": "1.0",
+    "swaggerVersion": "1.1",
+    "basePath": "https://localhost:1611/api/1",
+    "resourcePath": "/admin",
+    "apis": [             
+    {
+            "path": "/admin/connectivity",
+            "description": "Check the authentication of a BCM administrator",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Check the authentication of a BCM administrator",
+					"notes": "This operation checks the authentication of a BCM administrator.",
+                    "responseClass": "AdminOperationResult: This class returns the final status of the executed operation, that is if it was successful or not, and if not the corresponding",
+                    "nickname": "checkAuthentication",
+                    "parameters": [
+                        {
+                            "name": "validation",
+                            "description": "Defines if the external integration login is to be validated.",
+                            "paramType": "query",
+							"defaultValue": 0,
+							"allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    0,
+									1
+                                ]
+                            },
+                            "required": false,
+                            "defaultValue": 0,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "externalLogin",
+                            "description": "The login name of the external integration administrator who will execute the operation.",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": { 
+        "AdminOperationResult": {
+            "id": "AdminOperationResult",
+            "properties": {
+                "ErrorCode": {
+                    "type": "int",
+					"description": "The error code returned by the operation if the operation failed or 0 for a successful operation."
+                }
+            }
+        }
+    }
+}

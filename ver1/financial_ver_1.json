@@ -1,0 +1,199 @@
+{
+    "apiVersion": "1.0",
+    "swaggerVersion": "1.1",
+    "basePath": "https://localhost:1611/api/1",
+    "resourcePath": "/financial",
+    "apis": [
+    {
+            "path": "/financial/lifecyclestatus",
+            "description": "Get the list of life cycle statuses",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get the list of life cycle statuses",
+					"notes": "This operation provides a list of available life cycle statuses.",
+                    "responseClass": "DeviceAssetLifeCycleArray: This class returns a list of available life cycle statuses.",
+                    "nickname": "fetchDeviceAssetLifeCycleStatus",
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+    },
+    {
+           "path": "/financial/lifecyclestatus",
+            "description": "Add a new life cycle status",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Add a new life cycle status",
+					"notes": "This operation adds a new life cycle status",
+                    "responseClass": "StatusIDResult: This class returns the ID of the new added status.",
+                    "nickname": "addNewLifeCycleStatus",
+                    "parameters": [
+                        {                         
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",                          
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "StatusData"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+    },
+    {
+           "path": "/financial/lifecyclestatus/order",
+            "description": "Change the order of the life cycle statuses",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Change the order of the life cycle statuses",
+					"notes": "This operation changes the order of the life cycle statuses",
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "changeLifeCycleStatusOrder",
+                    "parameters": [
+                        {
+                            "name": "ids",
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",                          
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "StatusIDValues"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+    },
+    {
+           "path": "/financial/lifecyclestatus/{statusId}",
+            "description": "Remove a life cycle status",
+            "operations": [
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Remove a life cycle status",
+					"notes": "This operation removes a life cycle status",
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "removeLifeCycleStatus",
+                    "parameters": [
+                        {
+                            "name": "statusId",
+                            "description": "The life cycle status to remove.",
+                            "paramType": "path",                          
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+    }
+    ],
+    "models": {
+        "StatusIDResult": {
+            "id": "StatusIDResult",
+            "properties": {
+                "id": { 
+                    "type": "int",
+                    "description": "Status id"
+                }
+            }
+        },
+        "OperationResult": {
+            "id": "OperationResult",
+            "properties": {                
+                "errorCode": {
+                    "type": "int"
+                }
+            }
+        },
+        "DeviceAssetLifeCycleArray": {
+            "id": "DeviceAssetLifeCycleArray",
+            "description":"This class returns the number of life cycle status.",
+            "properties": {  
+                "total": {
+                    "type": "int"
+                },    
+                "rules": {
+                    "items": {
+                        "$ref": "fetchDeviceAssetLifeCycleStatus"
+                    },
+                    "type": "Array"
+                },
+                "ErrorCode": {
+                    "type": "int"
+                }
+            }
+        },
+        "fetchDeviceAssetLifeCycleStatus": {
+            "id": "fetchDeviceAssetLifeCycleStatus",
+            "properties": {                
+                "rule": {
+                    "items": {
+                        "$ref": "LifeCycleStatusValuesArray"
+                    },
+                    "type": "Array"
+                }
+            }
+        },
+        "LifeCycleStatusValuesArray": {
+            "id": "LifeCycleStatusValuesArray",
+            "properties": {                
+                "Id": {
+                    "type": "int",
+                    "description":"ID of life cycle status."
+                },
+                "Status": {
+                    "type": "string",
+                    "description":"Life cycle status."
+                },
+                "Sequence": {
+                    "type": "int",
+                    "description":"Life cycle status sequence."
+                }
+            }
+        },
+        "StatusData": {
+            "id": "StatusData",
+            "description": "This class provides the name of the new added status.",
+            "properties": {
+                "name": {
+                    "type": "string",
+					"description": "The name of the new added status. Status can be got from the web service GET /financial/lifecyclestatus operation."
+                }
+            }
+        },        
+        "StatusIDValues": {
+            "id": "StatusIDValues",
+            "properties": {                
+                    "ids": {
+                        "items":{
+                            "$ref": "int"
+                        },
+                        "type": "Array"
+                    }
+            }
+        }      
+    }
+}

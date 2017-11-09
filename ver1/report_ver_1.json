@@ -1,0 +1,161 @@
+{
+
+    "apiVersion": "1.0",
+    "swaggerVersion": "1.1",
+    "basePath": "https://localhost:1611/api/1",
+    "resourcePath": "/report",
+    "apis": [                
+        {
+            "path": "/report/{reportId}/generate",
+            "description": "Generate a report",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Generate a report",
+					"notes": "This operation generates a specific public report.",
+                    "responseClass": "ReportGenerate: This class returns if the generation of a specific public report was successful.",
+                    "nickname": "generateReport",
+                    "parameters": [
+                        {
+                            "name": "reportId",
+                            "description": "The unique Client Management database identifier of the report. This value is returned by the GET /reports/public operation.",
+                            "paramType": "path",                          
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/report/{reportId}/load",
+            "description": "Load a generated report",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Load a generated report",
+					"notes": "This operation loads a specific, already generated public report from the archive and displays it on the screen.",
+                    "responseClass": "ReportLoad: This class returns if a specific archived public report could be loaded and provides all its pertinent information. Depending on its type, not all of the available parameters are part of the class.",
+                    "nickname": "loadReport",
+                    "parameters": [
+                        {
+                            "name": "reportId",
+                            "description": "The unique Client Management database identifier of the report. This value is returned by the GET /reports/public operation.",
+                            "paramType": "path",                          
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {        
+        "ReportGenerate": {
+            "id": "ReportGenerate",
+            "properties": {
+                "Value": {
+                    "type": "int",
+                    "description": "The unique Client Management identifier for the report result."
+                },                
+                "ErrorCode": {
+                    "type": "int",
+                    "description": "The error code of executed operation, 0 when successful."
+                }
+            }
+        },
+        "ReportLoadSubReportData": {
+            "id": "ReportLoadSubReportData",
+            "properties": {
+                "SubReportResult": {
+                    "type": "int",
+                    "description": "The errorcode of the subreport generation, which may be 0 for a successful generation or 1 if it failed."
+                },
+                "FormatName": {
+                    "type": "string",
+                    "description": "The type of the subreport, that is, if it is a table, a bar or pie or line chart."
+                },
+                "Values": {
+                    "type": "string",
+                    "description": "A string containing all subreport data."
+                }
+            }
+        },
+        "ReportLoadReportData": {
+            "id": "ReportLoadReportData",
+            "properties": {
+                "SubReportData": {
+                    "items": {
+                        "$ref": "ReportLoadSubReportData"
+                    },
+                    "type": "array"
+                },
+                "StyleFormat": {
+                    "type": "string",
+                    "description": "The style of the report."
+                },
+                "ReportTitle": {
+                    "type": "string",
+                    "description": "The title of the report."
+                },
+                "ReportDate": {
+                    "type": "string",
+                    "description": "The date and time at which the report was generated."
+                },
+                "FontSize": {
+                    "type": "int",
+                    "description": "Defines the font size for this report. This may be a number between 8 and 18."
+                },
+                "FontType": {
+                    "type": "string",
+                    "description": "Defines the font type family for this report. This will also be the font type used for the PDF generation."
+                }
+            }
+        },
+        "ReportLoad": {
+            "id": "ReportLoad",
+            "properties": {
+                "ReportData": {
+                    "items": {
+                        "$ref": "ReportLoadReportData"
+                    },
+                    "type": "object"
+                },
+                "Values": {
+                    "type": "string",
+                    "description": "This parameter indicates the path to the report result file of the generated report. This parameter is not applicable to style based reports."
+                },
+                "GroupID": {
+                    "type": "int",
+                    "description": "This number displays if the report is assigned to an Client Management object, such as a device group or an operational rule, in which case this parameter returns the ID of the respective object, otherwise it returns 0. This parameter is not applicable to style-based reports."
+                },
+                "ObjectID": {
+                    "type": "int",
+                    "description": "The unique Client Management identifier of the report result."
+                },
+                "CreateTime": {
+                    "type": "string",
+                    "description": "The date and time the file was created on the originating device. This is the same information as that of the Name field part but in the default date and time format defined in the user preferences."
+                },
+                "ReportType": {
+                    "type": "string",
+                    "description": "Defines the type of the report, i.e., if it is style or template based. This value of this parameter also defines which of the above listed other paramters are applicable." 
+                }
+            }
+        }
+    }
+}

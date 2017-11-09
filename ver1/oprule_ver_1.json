@@ -1,0 +1,3469 @@
+{
+    "apiVersion": "1.0",
+    "swaggerVersion": "1.1",
+    "basePath": "https://localhost:1611/api/1",
+    "resourcePath": "/oprule",
+    "apis": [      
+        {
+            "path": "/oprule/subfolders",
+            "description": "Get the list of folders at operational rule root level",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get the list of folders at operational rule root level",                 
+                    "notes": "This operation returns the list of operational rule folders located directly below the top node. When hierarchy parameter is set to true, this also lists operational rules at root level.",
+                    "responseClass": "OperationalRuleFolderArray: This class provides the number of children of a specific location and information on all these children.",
+                    "nickname": "getOperationalRulesRootFolders",
+                    "parameters": [
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the subfolders or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the folder (name), the date at which the folder was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "hierarchy",
+                            "description": "Select from this drop-down box if the operational rules contained in the respective folder are listed in the return class, true for include in the list, false for do not include.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query",
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },        
+        {
+            "path": "/oprule/folder/{folderId}/subfolders",
+            "description": "Get the list of subfolders of an operational rule folder",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get the list of subfolders of an operational rule folder",     
+                    "notes": " This operation returns the list of subfolders of a specific operational rules folder.",     
+                    "responseClass": "OperationalRuleFolderArray: This class provides the number of children of a specific location and information on all these children.",
+                    "nickname": "getOperationalRulesSubfoldersFromFolder",
+                    "parameters": [
+                        {
+                            "name":"folderId",
+                            "description": "The unique Client Management database identifier of the operational rules subfolder. This value is returned by either the /oprule/subfolders or another /oprule/folder/{folderId}/subfolders operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the subfolders or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the folder (name), the date at which the folder was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "hierarchy",
+                            "description": "Select from this drop-down box if the operational rules contained in the respective folder are listed in the return class, true for include in the list, false for do not include.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query",
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/folder/{folderId}",
+            "description": "Get details of an operational rule folder",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get details of an operational rule folder",                 
+                    "notes": "This operation returns the details of a specific operational rules folder.",                 
+                    "responseClass": "OperationalRuleFolderValues: This class provides the information available for an operational rules folder.",
+                    "nickname": "getOperationalRulesFolderDetails",
+                    "parameters": [
+                        {
+                            "name":"folderId",
+                            "description": "The unique Client Management database identifier of the operational rules subfolder. This value is returned by either the /oprule/subfolders or another /oprule/folder/{folderId}/subfolders operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },                  
+        {
+            "path": "/oprule/rules",
+            "description": "Get list of operational rules at root folder.",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get list of operational rules at root folder.",                 
+                    "notes" :"This operation returns the list of operational rules directly located under the Operational Rules top node.",
+                    "responseClass": "OperationalRuleArray: This class returns the number of operational rules found in the specific location and one operational rule information array per rule.",
+                    "nickname": "getOperationalRulesRootRules",
+                    "parameters": [
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the subfolders or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the operational rules (name), the type of the operational rules (type), the URL contained in the operational rules (Quick Link rules only - url), the date at which the operational rules was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "type",
+                                    "url",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query",
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },        
+        {
+            "path": "/oprule/folder/{folderId}/rules",
+            "description": "Get the list of operational rules of the specified folder",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get the list of operational rules of the specified folder", 
+                    "notes": "This operation returns the list of operational rules of a specific folder.",                    
+                    "responseClass": "OperationalRuleArray: This class returns the number of operational rules found in the specific location and one operational rule information array per rule.",
+                    "nickname": "getOperationalRulesRulesFromFolder",
+                    "parameters": [
+                        {
+                            "name":"folderId",
+                            "description": "The unique Client Management database identifier of the operational rules folder. This value is returned by either the /oprule/subfolders or another /oprule/folder/{folderId}/subfolders operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the subfolders or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the operational rules (name), the type of the operational rules (type), the URL contained in the operational rules (Quick Link rules only - url), the date at which the operational rules was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "type",
+                                    "url",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query",
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/{ruleId}",
+            "description": "Get details of an operational rule",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get details of an operational rule",     
+                    "notes": "This operation returns the details of an operational rule.",     
+                    "responseClass": "OperationalRuleValues: This class contains one array for each operational rule found in the specified location.",
+                    "nickname": "getOperationalRulesRuleDetails",
+                    "parameters": [
+                        {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },                     
+        {
+            "path": "/oprule/rule/{ruleId}/step/assignments",
+            "description": "Get the list of step assignments for an operational rule",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get the list of step assignments for an operational rule",
+                    "notes": " This operation returns the list of steps that are assigned to a specific operational rule.",                    
+                    "responseClass": "StepAssignmentArray: This class provides the list of all existing operational rule step assignments.",
+                    "nickname": "getRuleStepAssignments",
+                    "parameters": [
+                        {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name":"brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the operational rule step assignments or also additional available information, true for IDs only, false for IDs plus additional information such as name, type, and so on.",
+                            "paramType": "query",
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/{ruleId}/step/assignment/{assignmentId}",
+            "description": "Get details of a step assignment for an operational rule",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get details of a step assignment for an operational rule",     
+                    "notes": "This operation returns the available details of a specific step that is assigned to the operational rule.",   
+                    "responseClass": "StepAssignment: This class provides all information available for a specific step assignment.",
+                    "nickname": "getRuleStepAssignment",
+                    "parameters": [
+                        {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name":"assignmentId",
+                            "description": "The unique Client Management database identifier of the operational rule step assignment. This value is returned by the GET /oprule/rule/{ruleId}/step/assignments operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },  
+        {
+            "path": "/oprule/icons",
+            "description": "Get the list of icons available for myApps",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get the list of icons available for myApps", 
+                    "notes": "This operation returns the list of icons that are available for the MyApps browser interface.", 
+                    "responseClass": "MyAppsIcons: This class provides the list of icons that are available for representing the rule in MyApps.",
+                    "nickname": "getOperationalRuleMyAppsIcons",     
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },              
+        {
+            "path": "/oprule/step/classes",
+            "description": "Get the list of classes available for operational rule steps",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get the list of classes available for operational rule steps",                 
+                    "notes": "This operation returns the list of step classes that available for the operational rule.",
+                    "responseClass": "StepClasses: This class provides the list of available step classes.",
+                    "nickname": "getOperationalRuleStepClasses",     
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/steps",
+            "description": "Get the list of steps available for operational rule",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get the list of steps available for operational rule",
+                    "notes": "This operation returns the list of steps that are available for operational rules. Filters may be applied to this search.",                    
+                    "responseClass": "StepList: This class provides the list of steps that are available in the specified class.",
+                    "nickname": "getOperationalRuleSteps",
+                    "parameters": [
+                        {
+                            "name": "class",
+                            "description": "The unique Client Management database identifier of the step class. This value is returned by the /oprule/step/classes operation.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "query",
+                            "description": "Enter into this field a specific expression or combination of words that are part of the name or contained the notes of the step you are looking for.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "language",
+                            "description": "The language in which the search will be carried out; this may be either English, American, Francais, Deutsch, Japanese, Espanol or Brasileiro. Select the desired value from the drop-down box.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "English",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "English",
+                                    "Espanol",
+                                    "Deutsch",
+                                    "American",
+                                    "Japanese",
+                                    "Francais",
+                                    "Brasileiro"
+                                ]
+                            },
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }                        
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/step/{stepTypeId}",
+            "description": "Get the list of parameters of a given stepTypeId",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get the list of parameters of a given stepTypeId.", 
+                    "notes": "This operation returns the list of parameters of a specific step.",                    
+                    "responseClass": "StepDetails: This class provides details on a specific step assigned to a specific rule.",
+                    "nickname": "getOperationalRuleStep",
+                    "parameters": [
+                        {
+                            "name":"stepTypeId",
+                            "description": "The unique Client Management database identifier of the step. This value is returned by the /oprule/steps operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }                     
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/{ruleId}/device/assignments",
+            "description": "Get list of all devices assigned to an operational rule",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get list of all devices assigned to an operational rule",
+                    "notes": "This operation returns the list of all devices that are assigned to a specific operational rule.",                    
+                    "responseClass": "DeviceAssignmentAttrsArray: This class provides a list of arrays containing information on the assignment between an operational rule and a device.",
+                    "nickname": "getRuleDeviceAssignments",
+                    "parameters": [                     
+                        {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name":"brief",
+                            "description": "Select from this drop-down box if the return class only returns a summary of the assignments, that is their IDs, or also additional available information, true for IDs only, false for IDs plus additional information such as errors, execution schedule, and so on.",
+                            "paramType": "query",
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query",
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/device/assignment/{assignmentId}",
+            "description": "Get details of an operational rule device assignment",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get details of an operational rule device assignment",    
+                    "notes":"This operation returns the details of an assignment between a specific device and operational rule.",
+                    "responseClass": "DeviceAssignmentAttrsObject: This class provides the list of operational rule device assignments, one array per assignment.",
+                    "nickname": "getRuleDeviceAssignment",
+                    "parameters": [                     
+                        {
+                            "name":"assignmentId",
+                            "description": "The unique Client Management database identifier of the assignment between the specific operational rule and device. This value is returned by the /oprule/rule/{ruleId}/device/assignments operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/{ruleId}/device/group/assignments",
+            "description": "Get list of all device groups assigned to an operational rule",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get list of all device groups assigned to an operational rule",
+                    "notes":"This operation returns the list of all device groups that are assigned to a specific operational rule.",                    
+                    "responseClass": "DeviceGroupAssignmentAttrsArray: This class provides information on the assignment between an operational rule and a device group.",
+                    "nickname": "getRuleDeviceGroupAssignments",
+                    "parameters": [                     
+                        {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name":"brief",
+                            "description": "Select from this drop-down box if the return class only returns a summary of the assignments, that is their IDs, or also additional available information, true for IDs only, false for IDs plus additional information such as errors, execution schedule, and so on.",
+                            "paramType": "query",
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/device/group/assignment/{assignmentId}",
+            "description": "Get details of an operational rule device group assignment",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get details of an operational rule device group assignment", 
+                    "notes": "This operation returns the details of an assignment between a specific device group and operational rule.",
+                    "responseClass": "DeviceGroupAssignmentAttrsObject: This class provides information on the assignment between an operational rule and a device group.",
+                    "nickname": "getRuleDeviceGroupAssignment",
+                    "parameters": [                     
+                        {
+                            "name":"assignmentId",
+                            "description": "The unique Client Management database identifier of the assignment between the specific operational rule and a device group. This value is returned by the GET /oprule/rule/{ruleId}/device/group/assignments operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/{ruleId}/user/assignments",
+            "description": "Get list of all users assigned to an operational rule",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get list of all users assigned to an operational rule",  
+                    "notes": "This operation returns the list of all users that are assigned to a specific operational rule.",    
+                    "responseClass": "UserAssignmentAttrsArray: This class provides information on the assignment between an operational rule and a user.",
+                    "nickname": "getRuleUserAssignments",
+                    "parameters": [                     
+                        {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name":"brief",
+                            "description": "Select from this drop-down box if the return class only returns a summary of the assignments, that is their IDs, or also additional available information, true for IDs only, false for IDs plus additional information such as errors, execution schedule, and so on.",
+                            "paramType": "query",
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query",
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/user/assignment/{assignmentId}",
+            "description": "Get details of an operational rule user assignment",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get details of an operational rule user assignment",
+                    "notes":"This operation returns the details of an assignment between a specific user and operational rule.",                    
+                    "responseClass": "UserAssignmentAttrsObject: This class provides information on the assignment between an operational rule and a user.",
+                    "nickname": "getRuleUserAssignment",
+                    "parameters": [                     
+                        {
+                            "name":"assignmentId",
+                            "description": "The unique Client Management database identifier of the assignment between the specific operational rule and user. This value is returned by the /oprule/rule/{ruleId}/user/assignments operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/{ruleId}/user/group/assignments",
+            "description": "Get list of all user groups assigned to an operational rule",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get list of all user groups assigned to an operational rule",        
+                    "notes":"This operation returns the list of all user groups that are assigned to a specific operational rule.",                    
+                    "responseClass": "UserGroupAssignmentAttrsArray: This class provides information on the assignment between an operational rule and a user group.",
+                    "nickname": "getRuleUserGroupAssignments",
+                    "parameters": [                     
+                        {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name":"brief",
+                            "description": "Select from this drop-down box if the return class only returns a summary of the assignments, that is their IDs, or also additional available information, true for IDs only, false for IDs plus additional information such as errors, execution schedule, and so on.",
+                            "paramType": "query",
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/user/group/assignment/{assignmentId}",
+            "description": "Get details of an operational rule user group assignment",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get details of an operational rule user group assignment",    
+                    "notes":"This operation returns the details of an assignment between a specific user group and operational rule.",                     
+                    "responseClass": "UserGroupAssignmentAttrsObject: This class provides information on the assignment between an operational rule and a user group.",
+                    "nickname": "getRuleUserGroupAssignment",
+                    "parameters": [                     
+                        {
+                            "name":"assignmentId",
+                            "description": "The unique Client Management database identifier of the assignment between the specific operational rule and a specific user group. This value is returned by the GET /oprule/rule/{ruleId}/user/group/assignments operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/{ruleId}/dependencies",
+            "description": "Get the list of dependent operational rules",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get the list of dependent operational rules",   
+                    "notes": "This operation returns the list of operational rules that are dependend on another specific rule." ,                   
+                    "responseClass": "OpRuleDependencies: This class returns the list of dependent operational rules on a specific rule.",
+                    "nickname": "getRuleDependencies",
+                    "parameters": [                     
+                       {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/{ruleId}/packages",
+            "description": "Get the list of packages assigned to an operational rule",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get the list of packages assigned to an operational rule",
+                    "notes":"This operation returns the list of packages assigned to a specific operational rule.",                    
+                    "responseClass": "PackageAssignment: This class returns the list of packages assigned to a specific operational rule.",
+                    "nickname": "getRulePackagAssignment",
+                    "parameters": [                     
+                       {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name":"brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the packages or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/subfolder",
+            "description": "Create an operational rule folder under root",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Create an operational rule folder under root",  
+                    "notes":"This operation creates a new operational rule folder directly below the Operational Rules top node.",                    
+                    "responseClass": "PutRuleFolderResult: This class returns the result of an operational rule folder creation operation.",
+                    "nickname": "putOperationalRulesRootFolder",
+                    "parameters": [
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "FolderAttrs"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/folder/{folderId}/subfolder",
+            "description": "Create an operational rule subfolder in a specific folder",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Create an operational rule subfolder in a specific folder", 
+                    "notes":"This operation creates a new operational rule subfolder in a specific operational rules folder.",
+                    "responseClass": "OperationalRuleFolderValues: This class provides the information available for an operational rules folder.",
+                    "nickname": "putOperationalRulesFolder",
+                    "parameters": [
+                        {
+                            "name":"folderId",
+                            "description": "The unique Client Management database identifier of the operational rules subfolder. This value is returned by either the /oprule/subfolders or another /oprule/folder/{folderId}/subfolders operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "FolderAttrs"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },       
+        {
+            "path": "/oprule/rule",
+            "description": "Create a root operational rule under root",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Create a root operational rule under root",
+                    "notes":"This operation creates a new operational rules directly under the Operational Rules top node.",        
+                    "responseClass": "PutRuleResult: This class returns the result of the create or update operation of the rule.",
+                    "nickname": "putOperationalRulesRootRule",
+                    "parameters": [
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "OperationalRuleAttrs"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/folder/{folderId}/rule",
+            "description": "Create an operational rule in a specific folder",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Create an operational rule in a specific folder",
+                    "notes":"This operation creates a new operational rule in a specific folder.",
+                    "responseClass": "PutRuleResult: This class returns the result of the create or update operation of the rule.",
+                    "nickname": "putOperationalRulesRule",
+                    "parameters": [
+                        {
+                            "name":"folderId",
+                            "description": "The unique Client Management database identifier of the operational rules subfolder. This value is returned by either the /oprule/subfolders or another /oprule/folder/{folderId}/subfolders operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "OperationalRuleAttrs"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/folder/{folderId}",
+            "description": "Update operational rule folder data",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Update operational rule folder data",
+                    "notes":"This operation updates the data of a specific operational rules folder.",
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "putOperationalRulesFolderDetails",
+                    "parameters": [
+                        {
+                            "name":"folderId",
+                            "description": "The unique Client Management database identifier of the operational rules folder. This value is returned by either the /oprule/subfolders or another /oprule/folder/{folderId}/subfolders operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "FolderAttrs"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/{ruleId}",
+            "description": "Update operational rule data",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Update operational rule data",
+                    "notes":"This operation updates the data of a specific operational rule.",        
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "putOperationalRulesRuleDetails",
+                    "parameters": [
+                        {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "OperationalRuleAttrsForUpdate"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/{ruleId}/step/{stepTypeId}",
+            "description": "Assign a step to an operational rule",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Assign a step to an operational rule",
+                    "notes":"This operation assigns a step to a specific operational rule.",    
+                    "responseClass": "PutRuleStepAssignmentResult: This class provides the result of an operational rule step assignment.",
+                    "nickname": "putOperationalRuleStepAssignment",
+                    "parameters": [
+                        {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /rollout/configurations or a GET /rollout/folder/{folderId}/rollout configurations.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name":"stepTypeId",
+                            "description": "The unique Client Management database identifier of the step. This value is returned by the /oprule/steps operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name":"stepAttributes",
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "StepAttrs"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/{ruleId}/device/{deviceId}",
+            "description": "Assign a device to an operational rule",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Assign a device to an operational rule", 
+                    "notes":"This operation assigns a device to a specific operational rule.",        
+                    "responseClass": "AssignmentDetails: This class provides information on the assignment between an operational rule and a target.",
+                    "nickname": "putRuleAssignDevice",
+                    "parameters": [
+                        {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name":"deviceId",
+                            "description": "The unique Client Management database ID of the device. This value is returned by either the GET /devices or the GET /device operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                          "name":"activation",
+                            "description": "Select from this drop-down box if the assignment is to be effected automatically or manually.",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "automatic",
+                                    "manual"                                   
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": true,
+                            "defaultValue": "automatic",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/{ruleId}/device/group/{groupId}",
+            "description": "Assign a device group to an operational rule",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Assign a device group to an operational rule", 
+                    "notes":"This operation assigns a device group to a specific operational rule.",    
+                    "responseClass": "AssignmentDetails: This class provides information on the assignment between an operational rule and a target.",
+                    "nickname": "putRuleAssignDeviceGroup",
+                    "parameters": [
+                        {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name":"groupId",
+                            "description": "The unique Client Management database identifier of the device group to assign. This value is returned by the GET /group/subgroups , GET /group/{groupId}/hierarchy and GET /group/subgroup/{groupId}/subgroups operations.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                          "name":"activation",
+                            "description": "Select from this drop-down box if the assignment is to be effected automatically or manually.",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "automatic",
+                                    "manual"                                   
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": true,
+                            "defaultValue": "automatic",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/{ruleId}/user/{userId}",
+            "description": "Assign a user to an operational rule",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Assign a user to an operational rule",
+                    "notes":"This operation assigns a user to a specific operational rule.",    
+                    "responseClass": "AssignmentDetails: This class provides information on the assignment between an operational rule and a target.",
+                    "nickname": "putRuleAssignUser",
+                    "parameters": [
+                        {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name":"userId",
+                            "description": "The unique Client Management database identifier of the user. User IDs are returned by the GET /user/users or GET /user/group/{groupId}/users operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "UserAssignmentAttrsPut"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        }, 
+        {
+            "path": "/oprule/rule/{ruleId}/user/group/{groupId}",
+            "description": "Assign a user group to an operational rule",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Assign a user group to an operational rule", 
+                    "notes":"This operation assigns a user group to a specific operational rule.",    
+                    "responseClass": "AssignmentDetails: This class provides information on the assignment between an operational rule and a target.",
+                    "nickname": "putRuleAssignUserGroup",
+                    "parameters": [
+                        {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name":"groupId",
+                            "description": "The unique Client Management database identifier of the user group. User group IDs are returned by the GET /user/subgroups or GET /user/group/{groupId}/subgroups operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "UserAssignmentAttrsPut"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/{ruleId}/step/assignment/{assignmentId}",
+            "description": "Update the data of an operational rule step assignment",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Update the data of an operational rule step assignment",
+                    "notes":"This operation updates the parameters of a step assignment of a specific operational rule.",                    
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "putRuleStepAssignment",
+                    "parameters": [
+                        {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name":"assignmentId",
+                            "description": "The unique Client Management database identifier of the operational rule step assignment. This value is returned by the GET /oprule/rule/{ruleId}/step/assignments operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": "true",
+                            "allowMultiple": "false",
+                            "dataType": "StepAssignmentForUpdate"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },        
+        {
+            "path": "/oprule/rule/device/assignment/{assignmentId}",
+            "description": "Update the data of an operational rule device assignment",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Update the data of an operational rule device assignment",
+                    "notes":"This operation updates the parameters of the assignment between an operational rule and a device.",    
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "putRuleDeviceAssignment",
+                    "parameters": [
+                        {
+                            "name":"assignmentId",
+                            "description": "The unique Client Management database identifier of the assignment between the specific operational rule and a device. This value is returned by the /oprule/rule/{ruleId}/device/assignments operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": "true",
+                            "allowMultiple": "false",
+                            "dataType": "DeviceAssignment"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },        
+        {
+            "path": "/oprule/rule/device/group/assignment/{assignmentId}",
+            "description": "Update the data of an operational rule device group assignment",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Update the data of an operational rule device group assignment", 
+                    "notes":"This operation updates the parameters of the assignment between an operational rule and a device group.",    
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "putRuleDeviceGroupAssignment",
+                    "parameters": [
+                        {
+                            "name":"assignmentId",
+                            "description": "The unique Client Management database identifier of the assignment between the specific operational rule and a device group. This value is returned by the GET /oprule/rule/{ruleId}/device/group/assignments operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": "true",
+                            "allowMultiple": "false",
+                            "dataType": "DeviceGroupAssignment"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },              
+        {
+            "path": "/oprule/rule/user/assignment/{assignmentId}",
+            "description": "Update the data of an operational rule user assignment",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Update the data of an operational rule user assignment",
+                    "notes":"This operation updates the parameters of the assignment between an operational rule and a user.",    
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "putRuleUserAssignment",
+                    "parameters": [
+                        {
+                            "name":"assignmentId",
+                            "description": "The unique Client Management database identifier of the assignment between the specific operational rule and a specific user. This value is returned by the GET /oprule/rule/{ruleId}/user/assignments operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": "true",
+                            "allowMultiple": "false",
+                            "dataType": "UserAssignment"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },        
+        {
+            "path": "/oprule/rule/user/group/assignment/{assignmentId}",
+            "description": "Update the data of an operational rule user group assignment",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Update the data of an operational rule user group assignment",
+                    "notes":"This operation updates the parameters of the assignment between an operational rule and a user group.",    
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "putRuleUserGroupAssignment",
+                    "parameters": [
+                        {
+                            "name":"assignmentId",
+                            "description": "The unique Client Management database identifier of the assignment between the specific operational rule and a specific user group. This value is returned by the GET /oprule/rule/{ruleId}/user/group/assignments operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": "true",
+                            "allowMultiple": "false",
+                            "dataType": "UserGroupAssignment"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/{ruleId}/dependency/{dependentRuleId}",
+            "description": "Create or update a rule dependency",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Create or update a rule dependency",  
+                    "notes": "This operation is used to create a rule dependency on one rule on another by providing rule id's in specified format. Dependency order generated will be last one in the list of dependencies. This operation can also be used to update the dependency order by proving new position number, provided rule has been created earlier without providing position.",                    
+                    "responseClass": "OpRuleDependencyOrder: This class returns order of the dependent operational rules of a specific rule.",
+                    "nickname": "putRuleDependencies",
+                    "parameters": [
+                        {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name":"dependentRuleId",
+                            "description": "The unique Client Management database identifier of the operational rule which is dependend on the execution of the first rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name":"Position",
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "OpRuleDependencyPosition"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },    
+        {
+            "path": "/oprule/rule/{ruleId}/package/{packageId}",
+            "description": "Assign a package to an operational rule",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Assign a package to an operational rule",
+                    "notes":"This operation adds a package to a specific operational rule.",    
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "putRuleAssignPackage",
+                    "parameters": [
+                        {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name":"packageId",
+                            "description": "The unique Client Management database identifier of the package. This value is returned by either the GET /packages/packages or a GET /packages/folder/{folderId}/packages operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/folder/{folderId}",
+            "description": "Delete an operational rules folder",
+            "operations": [
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete an operational rules folder",
+                    "notes":"This operation deletes a specific operational rules folder.",    
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "deleteOperationalRulesRuleFolder",
+                    "parameters": [
+                        {
+                            "name":"folderId",
+                            "description": "The unique Client Management database identifier of the operational rules subfolder. This value is returned by either the /oprule/subfolders or another /oprule/folder/{folderId}/subfolders operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/{ruleId}/step/assignment/{assignmentId}",
+            "description": "Delete an operational rule step assignment",
+            "operations": [
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete an operational rule step assignment", 
+                    "notes":"This operation deletes a specific operational rule step assignment.",    
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "deleteRuleStepAssignment",
+                    "parameters": [
+                        {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name":"assignmentId",
+                            "description": "The unique Client Management database identifier of the operational rule step assignment. This value is returned by the GET /oprule/rule/{ruleId}/step/assignments operation.t",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "forceDelete",
+                            "description": "Remove the step even if the step is referenced by a 'Go to step' parameter.",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "boolean",
+                            "defaultValue": "false"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+         {
+            "path": "/oprule/rule/{ruleId}",
+            "description": "Delete an operational rule",
+            "operations": [
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete an operational rule",  
+                    "notes":"This operation deletes a specific operational rule.",    
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "deleteOperationalRulesRule",
+                    "parameters": [
+                        {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },  
+        {
+            "path": "/oprule/rule/device/assignment/{assignmentId}",
+            "description": "Delete an operational ruledevice assignment",
+            "operations": [
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete an operational ruledevice assignment",
+                    "notes":"This operation deletes a specific assignment between a device and an operational rule.",     
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "deleteRuleDeviceAssignment",
+                    "parameters": [
+                        {
+                            "name":"assignmentId",
+                            "description": "The unique Client Management database identifier of the assignment between the specific operational rule and a device. This value is returned by the /oprule/rule/{ruleId}/device/assignments operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                          "name":"activation",
+                            "description": "Select from this drop-down box if the unassignment is to be effected automatically or manually.",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "automatic",
+                                    "manual"                                   
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": true,
+                            "defaultValue": "automatic",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/device/group/assignment/{assignmentId}",
+            "description": "Delete an operational rule device group assignment",
+            "operations": [
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete an operational rule device group assignment",
+                    "notes":"This operation deletes a specific assignment between a device group and an operational rule.",    
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "deleteRuleDeviceGroupAssignment",
+                    "parameters": [
+                        {
+                            "name":"assignmentId",
+                            "description": "The unique Client Management database identifier of the assignment between the specific operational rule and a device group. This value is returned by the GET /oprule/rule/{ruleId}/device/group/assignments operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                          "name":"activation",
+                            "description": "Select from this drop-down box if the unassignment is to be effected automatically or manually.",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "automatic",
+                                    "manual"                                   
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": true,
+                            "defaultValue": "automatic",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/user/assignment/{assignmentId}", 
+            "description": "Delete an operational rule user assignment",
+            "operations": [
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete an operational rule user assignment",
+                    "notes":"This operation deletes a specific assignment between a user and an operational rule.",    
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "deleteRuleUserAssignment",
+                    "parameters": [
+                        {
+                            "name":"assignmentId",
+                            "description": "The unique Client Management database identifier of the assignment between the specific operational rule and a specific user. This value is returned by the GET /oprule/rule/{ruleId}/user/assignments operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/user/group/assignment/{assignmentId}", 
+            "description": "Delete an operational rule user group assignment",
+            "operations": [
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete an operational rule user group assignment",
+                    "notes":"This operation deletes a specific assignment between a user group and an operational rule.",    
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "deleteRuleUserGroupAssignment",
+                    "parameters": [
+                        {
+                            "name":"assignmentId",
+                            "description": "The unique Client Management database identifier of the assignment between the specific operational rule and a specific user group. This value is returned by the GET /oprule/rule/{ruleId}/user/group/assignments operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/{ruleId}/dependency/{dependentRuleId}", 
+            "description": "Delete an operational rule dependency",
+            "operations": [
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete an operational rule dependency", 
+                    "notes": "This operation deletes a specific operational rule dependency.",                    
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "deleteRuleDependencies",
+                    "parameters": [
+                         {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name":"dependentRuleId",
+                            "description": "The unique Client Management database identifier of the operational rule which is dependend on the execution of the first rule. This value is returned by either theGET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/oprule/rule/{ruleId}/package/{packageId}", 
+            "description": "Delete an operational rule package assignment",
+            "operations": [
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete an operational rule package assignment",
+                    "notes":"This operation removes a package from a specific operational rule.",    
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "deleteRulePackageAssignment",
+                    "parameters": [
+                        {
+                            "name":"ruleId",
+                            "description": "The unique Client Management database identifier of the operational rule. This value is returned by either the GET /oprule/rules or a GET /oprule/folder/{folderId}/rules operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name":"packageId",
+                            "description": "The unique Client Management database identifier of the package. This value is returned by either the GET /packages/packages or a GET /packages/folder/{folderId}/packages operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {        
+        "OperationalRuleArray": {
+            "id": "OperationalRuleArray",
+            "description":"This class returns the number of operational rules found in the specific location and one operational rule information array per rule.",
+            "properties": {  
+                "total": {
+                    "type": "int"
+                },    
+                "rules": {
+                    "items": {
+                        "$ref": "OperationalRuleValues"
+                    },
+                    "type": "Array"
+                },
+                "ErrorCode": {
+                    "type": "int"
+                }
+            }
+        },
+        "OperationalRuleValues": {
+            "id": "OperationalRuleValues",
+            "properties": {                
+                "rule": {
+                    "items": {
+                        "$ref": "OperationalRuleValuesArray"
+                    },
+                    "type": "Array"
+                }
+            }
+        },
+        "OperationalRuleValuesArray": {
+            "id": "OperationalRuleValuesArray",
+            "properties": {                
+                "id": {
+                    "type": "int",
+                    "description":"ID of Operational rule."
+                },
+                "name": {
+                    "type": "string",
+                    "description":"Name of Operational rule."
+                },
+                "type": {
+                    "type": "string",
+                    "description":"Type of Operational rule."
+                },
+                "deploymentFromExternalIntegration": {
+                    "type": "string",
+                    "description":"Deployment information from external integration."
+                },
+                "kioskIcon": {
+                    "type": "string",
+                    "description":"KIOSK icon name."
+                },
+                "url": {
+                    "type": "string",
+                    "description":"URL information for Quick Link type operational rule."
+                },
+                "notes": {
+                    "type": "string",
+                    "description":"Additional information about operational rule."
+                },
+                "createDate": {
+                    "type": "int",
+                    "description":"Operational rule creation date."
+                },
+                "updateDate": {
+                    "type": "int",
+                    "description":"Operational rule updation date."
+                }
+            }
+        },
+        "PutRuleResult": {
+            "id": "PutRuleResult",
+            "properties": {                
+                "rule": {
+                    "type": "OperationalRuleValuesResult"
+                }
+            }
+        },
+        "OperationalRuleValuesResult": {
+            "id": "OperationalRuleValuesResult",
+            "properties": {               
+                "id": {
+                    "type": "int",
+                    "description": "Id of Operational Rule."
+                }
+            }
+        },
+        "OperationResult": {
+            "id": "OperationResult",
+            "properties": {                
+                "errorCode": {
+                    "type": "int"
+                }
+            }
+        },
+        "OperationalRuleAttrs": {            
+            "id": "OperationalRuleAttrs",
+            "properties": {                
+                "name": {
+                    "type": "string",
+                    "description": "The name of the new operational rule under which it will be known in Client Management. This name may be any combination of characters."
+                },
+                "type": {
+                    "type": "string",
+                    "description": "The type of the operational rule, which may be either 'Quick Link', if the rule is to be published to MyApps containing only a URL, or 'Operational Rule' if it is any other type of action that is executed. An operational rule will always be created with type Operational Rule. Once a package is assigned to it, its type will automatically be changed to Software Distribution.",
+                    "allowableValues":{
+                      "valueType":"LIST",
+                      "values":[
+                        "Operational Rule",
+                        "Quick Link"
+                      ]
+                    }
+                },
+                "url": {
+                    "type": "string",
+                    "description": "Enter into this field the URL that the rule is to provide the quick link for; in the format of http://www.mywebsite.com for an external site or //myshare.myserver.com/share1/share01 for an intranet page. This field is only applicable if the type is 'Quick Link'."
+                },
+                "notes": {
+                    "type": "string",
+                    "description": "This free text field may contain any additional information concerning the selected object."
+                },
+                 "kioskIcon": {
+                    "type": "string",
+                     "description": "Enter into this field the icon name with its relative path that is to represent this rule in MyApps."
+                }
+            }
+        },
+        "OperationalRuleAttrsForUpdate": {            
+            "id": "OperationalRuleAttrsForUpdate",
+            "description": "This class provides the information that is necessary to update an existing operational rule.",
+            "properties": {                
+                "name": {
+                    "type": "string",
+                    "description":"The name of the rule under which it is known in Client Management. This name may be any combination of characters."
+                },
+                "url": {
+                    "type": "string",
+                    "description": "Enter into this field the URL that the rule is to provide the quick link for; in the format of http://www.mywebsite.com for an external site or //myshare.myserver.com/share1/share01 for an intranet page. This field is only applicable if the type is 'Quick Link'."
+                },
+                "notes": {
+                    "type": "string",
+                    "description": "This free text field may contain any additional information concerning the selected object."
+                }
+            }
+        },
+        "PutRuleFolderResult": {
+            "id": "PutRuleFolderResult",
+            "properties": {               
+                "folder": {
+                    "type": "FolderValuesResult"
+                }
+            }
+        },
+        "FolderValuesResult": {
+            "id": "FolderValuesResult",
+            "properties": {               
+                "id": {
+                    "type": "int",
+                    "description": "Folder value id."
+                }
+            }
+        },
+        "OperationalRuleFolderArray": {
+            "id": "OperationalRuleFolderArray",
+            "properties": { 
+                "total": {
+                    "type": "int"
+                },    
+                "folders": {
+                    "items": {
+                        "$ref": "OperationalRuleFolderValues"
+                    },
+                    "type": "Array"
+                },
+                "ErrorCode": {
+                    "type": "int"
+                }
+            }
+        },
+        "OperationalRuleFolderValues": {
+            "id": "OperationalRuleFolderValues",
+            "properties": {                
+                    "folder": {
+                        "items":{
+                            "$ref": "OperationalRuleFolderValuesArray"
+                        },
+                        "type": "Array"
+                    }
+            }
+        },
+        "OperationalRuleFolderValuesArray": {
+            "id": "OperationalRuleFolderValuesArray",
+            "properties": {                
+                "id": {
+                    "type": "int",
+                    "description": "Operational rule folder ID."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Operational rule folder name."
+                },
+                "notes": {
+                    "type": "string",
+                    "description": "Additional information for operational rule folder."
+                },
+                "createDate": {
+                    "type": "int",
+                    "description": "Creation date for operational rule folder."
+                },
+                "updateDate": {
+                    "type": "int",
+                    "description": "Updation date for operational rule folder."
+                }
+            }
+        },
+        "FolderAttrs": {            
+            "id": "FolderAttrs",
+            "description": "This class provides the information required to create or update an operational rules folder.",
+            "properties": {                
+                "name": {
+                    "type": "string",
+                    "description": "The name of the object under which it is known in Client Management. This name may be any combination of characters."
+                },
+                "notes": {
+                    "type": "string",
+                    "description": "This free text field may contain any additional information concerning the selected object."
+                }
+            }
+        },
+        "StepAttrs": {            
+            "id": "StepAttrs",
+            "description": "This class provides the information required to create or update an operational rules folder.",
+            "properties": {                
+                "stopCondition": {
+                    "type": "string",
+                    "description": "Defines if the operational rule is to continue in case of error of a step. The possible values are _DB_STEPACTION_CONTINUE_: Continue with the execution of the operational rule, no matter if the current step was executed successfully or if it failed. _DB_STEPACTION_FAILED_: Stop the execution of the operational rule if this step failed and exit with a failed execution condition, or _DB_STEPACTION_SUCCEED_ : Stop the execution of the operational rule if this step is successful and exit with a successful execution condition.",
+                    "allowableValues":{
+                      "valueType":"LIST",
+                      "values":[
+                        "_DB_STEPACTION_CONTINUE_",
+                        "_DB_STEPACTION_FAILED_",
+                        "_DB_STEPACTION_SUCCEED_"
+                      ]
+                    }
+                },
+                "verificationCondition": {
+                    "type": "string",
+                    "description": "Defines if the operational rule is to continue the verification phase of a step if it fails. The possible values are _DB_STEPACTION_VERIFLOOPONERROR_: Continue with the verification phase as long as the current step fails, _DB_STEPACTION_VERIFLOOPONSUCCESS_: Continue with the verification phase as long as the current step succeeds, _DB_STEPACTION_VERIFNONE_: Do not execute any verification on the step. This options should be used if the step should generate an alert, _DB_STEPACTION_VERIFSTOPONERROR_: This parameter verifies the target device for a specific condition. If this verification fails, i.e. the condition is not fullfilled, the operational rule is considered as already executed, and its status will be updated to Executed. Any further steps defined in this rule will be ignored.  _DB_STEPACTION_VERIFSTOPONSUCCESS_ : This parameter verifies the target device for a specific condition. If this verification is successful, i.e. the condition is fullfilled, the operational rule is considered as already executed, and its status will be updated to Executed. Any further steps defined in this rule will be ignored.",
+                    "allowableValues":{
+                      "valueType":"LIST",
+                      "values":[
+                        "_DB_STEPACTION_VERIFLOOPONERROR_",
+                        "_DB_STEPACTION_VERIFLOOPONSUCCESS_",
+                        "_DB_STEPACTION_VERIFNONE_",
+                        "_DB_STEPACTION_VERIFSTOPONERROR_",
+                        "_DB_STEPACTION_VERIFSTOPONSUCCESS_"
+                      ]
+                    }
+                },
+                "notes": {
+                    "type": "string",
+                    "description": "This free text field may contain any additional information concerning the selected object."
+                },
+                "params": {
+                    "type": "Array",
+                    "description": "This array provides all values for the parameters of the step.",
+                    "items": { "$ref": "StepParamAttrs"}
+                }
+            }
+        },
+        "AssignmentValuesResult": {
+            "id": "AssignmentValuesResult",
+            "properties": {
+                "id": { 
+                    "type": "int",
+                    "description": "Assignment id"
+                }
+            }
+        },
+        "PutRuleStepAssignmentResult": {
+            "id": "PutRuleStepAssignmentResult",
+            "properties": {                
+                "assignment": {
+                    "type": "AssignmentValuesResult",
+                    "id": { 
+                        "type": "int",
+                        "description": "Assignment id."
+                    }
+                }
+            }
+        },
+        "StepParamAttrs": {
+            "id": "StepParamAttrs",
+            "description": "This class provides the values for the step parameters when assigning a step to an operational rule.",
+            "properties": {
+                "id": {
+                    "type": "int",
+                    "description": "The unique Client Management database identifier of the step parameter. This value is returned by the GET /oprule/step/{stepId} operation."
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The step parameter value."
+                }
+            }
+        },
+        "StepAssignmentForUpdate": {
+            "id": "StepAssignmentArray",
+            "description": "This class provides all the information required when updating an operational rule step assignment.",
+            "properties": {  
+                "position": {
+                    "type": "int",
+                    "description": "The position at which the step is to be placed in the list of steps."
+                },
+                "params": {
+                    "type": "Array",
+                    "items": {
+                        "$ref": "StepParamAttrs"
+                    },
+                    "description": "This array provides all values for the parameters of the step. If only the position is to be modified, it is not required."
+                }
+            }
+        },
+        "StepAssignmentArray": {
+            "id": "StepAssignmentArray",
+            "description": "This class provides the list of all existing operational rule step assignments.",
+            "properties": {  
+                "assignments": {
+                    "type": "Array",
+                    "description": "This class provides all information available for a specific step assignment.",
+                    "items": {
+                        "$ref": "StepAssignment"
+                    }
+                }
+            }
+        },
+        "StepAssignment": {
+            "id": "StepAssignment",
+            "description": "This class provides all information available for a specific step assignment.",
+            "properties": {  
+                 "assignment": {
+                    "type": "object",
+                    "description": "This object provides all information available for a specific step assignment.",
+                    "items": {
+                        "$ref": "StepAssignmentValues"
+                    }
+                }
+            }
+        },
+        "StepAssignmentValues": {
+            "id": "StepAssignmentValues",
+            "description": "This class provides the information available for one specific step.",
+            "properties": {  
+                "id": {
+                    "type": "int",
+                    "description": "The unique Client Management database identifier of the operational rule step."
+                },
+                "position": {
+                    "type": "int",
+                    "description": "The position of the step in the list of steps."
+                },
+                "step": {
+                   "type": "StepAttrsResult",
+                   "description": "This class provides all the information of a step that is assigned to an operational rule."
+               }
+            }
+        },
+        "StepAttrsResult": {
+            "id": "StepAttrsResult",
+            "properties": {                
+                "id": {
+                    "type": "int",
+                    "description": "ID of step attribute."
+                },
+                "params": {
+                    "items": {
+                        "$ref": "StepParamValues"
+                    },
+                    "type": "Array"
+                }
+            }
+        },
+        "StepParamValues": {
+            "id": "StepParamValues",
+            "properties": {                
+                "id": {
+                    "type": "int",
+                    "description": "ID of step param."
+                },
+                "label": {
+                    "type": "string",
+                    "description": "Label of the step param."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the step param."
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Data type of the step param."
+                },
+                "value": {
+                    "type": "string",
+                    "description": "Value of the step param."
+                }
+            }
+        },
+        "DeviceAssignment": {
+            "id": "DeviceAssignment",
+            "description": "his class provides all the information required when updating an operational rule device assignment.",
+            "properties": {
+                "status": {
+                    "type": "string",
+                    "description": "The overall status of the assigned object, for example if the operational rule has been downloaded and is ready to be executed or has already been successfully installed."
+                },
+                "transportMode": {
+                    "type": "string",
+                    "description": "Defines in which mode the operational rule was be transferred to the targets, possible values are Unknown, until the operational rule is being transferred and then either Multicast or Unicast to indicate in which mode it has been transferred."
+                },
+                "scheduleId": {
+                    "type": "int",
+                    "description": "The unique Client Management database identifier of the operational rule's schedule. This value is returned by the /oprule/rule/device/assignment/{assignmentId} operation."
+                },
+                "bypassTransferWindows": {
+                    "type": "boolean",
+                    "description": "Set this value to true if the distribution assignment is to be sent directly, ignoring any transfer window specifications which exist for the targets."
+                },
+                "assignEnableTime": {
+                    "type": "int",
+                    "description": "Defines the condition on which the operational rule assignment will start towards the targets, this can either be Immediately or the date and time at which the activation is to be executed."
+                },                
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Defines the overall status of the software distribution rule for the respective device group. You can deactivate a group by unchecking the Assignment Activation box of the scheduler. By default this box is checked and the status will be either Activated or Paused, if the default schedule was not selected during the assignment."
+                },
+                "networkInstall": {
+                    "type": "boolean",
+                    "description": "Defines the type of installation of the package: Administrative: Choose this option if the package is to be installed in the classic MSI administrative installation mode. This option is only applicable to MSI packages. Network: Select this option if you want to extract the MSI/custom package created with BMC Deployment Manager into a specific network path from which the target devices will download. Normal: Select this option if the package is to be simply downloaded by the target devices and installed. This parameter is only available if the corresponding system variable is activated."
+                },                
+                "specialCase": {
+                    "type": "int",
+                    "description": "Information for special case setting of operational rule assigned to devicee"
+                },
+                "wakeupDevices": {
+                    "type": "boolean",
+                    "description": "Set this value to true if the agent is to wake up any devices which are currently switched off, to immediately execute the assignment instead of waiting for the next startup to do so."
+                },
+                "executeWhileFails": {
+                    "type": "boolean",
+                    "description": "Defines if the operational rule/package is to be executed until its execution finally succeeds, i.e. the final status Executed is uploaded."
+                },
+                "uploadStatusEveryExec": {
+                    "type": "boolean",
+                    "description": "Defines that the status value is uploaded after every execution of the rule, even if it has not changed."
+                },
+                "runAsCurrentUser": {
+                    "type": "boolean",
+                    "description": "Set this value to true if the distribution is to be executed and installed on the local device as the logged user and not as LocalSystem."
+                }
+            }
+        },
+        "DeviceGroupAssignment": {
+            "id": "DeviceGroupAssignment",
+            "description": "This class provides all the information required when updating an operational rule device group assignment.",
+            "properties": {
+                "status": {
+                    "type": "string",
+                    "description": "The overall status of the assigned object, for example if the operational rule has been downloaded and is ready to be executed or has already been successfully installed."
+                },
+                "scheduleId": {
+                    "type": "int",
+                    "description": "The unique Client Management database identifier of the operational rule's schedule. This value is returned by the /oprule/rule/device/group/assignment/{assignmentId} operation."
+                },
+                "bypassTransferWindows": {
+                    "type": "boolean",
+                    "description": "Set this value to true if the distribution assignment is to be sent directly, ignoring any transfer window specifications which exist for the targets."
+                },
+                "assignEnableTime": {
+                    "type": "int",
+                    "description": "Defines the condition on which the operational rule assignment will start towards the targets, this can either be Immediately or the date and time at which the activation is to be executed."
+                },                
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Defines the overall status of the software distribution rule for the respective device group. You can deactivate a group by unchecking the Assignment Activation box of the scheduler. By default this box is checked and the status will be either Activated or Paused, if the default schedule was not selected during the assignment."
+                },
+                "networkInstall": {
+                    "type": "boolean",
+                    "description": "Defines the type of installation of the package: Administrative: Choose this option if the package is to be installed in the classic MSI administrative installation mode. This option is only applicable to MSI packages. Network: Select this option if you want to extract the MSI/custom package created with BMC Deployment Manager into a specific network path from which the target devices will download. Normal: Select this option if the package is to be simply downloaded by the target devices and installed. This parameter is only available if the corresponding system variable is activated."
+                },                
+                "specialCase": {
+                    "type": "int",
+                    "description": "Information for run as current user setting of operational rule assigned to devicee"
+                },
+                "wakeupDevices": {
+                    "type": "boolean",
+                    "description": "Set this value to true if the agent is to wake up any devices which are currently switched off, to immediately execute the  assignment instead of waiting for the next startup to do so."
+                },
+                "executeWhileFails": {
+                    "type": "boolean",
+                    "description": "Defines if the operational rule/package is to be executed until its execution finally succeeds, i.e. the final status Executed is uploaded."
+                },
+                "uploadStatus": {
+                    "type": "boolean",
+                    "description": "Define if only the final status values, i.e. Executed or Failed are to uploaded (unchecked), or if each and every status that the operational rule execution is passing through is uploaded (checked). This option is only available if the corresponding system variable is activated."
+                },
+                "uploadStatusEveryExec": {
+                    "type": "boolean",
+                    "description": "Defines that the status value is uploaded after every execution of the rule, even if it has not changed."
+                },
+                "runAsCurrentUser": {
+                    "type": "boolean",
+                    "description": "Set this value to true if the distribution is to be executed and installed on the local device as the logged user and not as LocalSystem."
+                }
+            }
+        },
+        "UserAssignment": {
+            "id": "UserAssignment",
+            "description": "This class provides all the information required when updating an operational rule user assignment.",
+            "properties": {
+                "status": {
+                    "type": "string",
+                    "description":"The overall status of the assigned object, for example if the operational rule has been downloaded and is ready to be executed or has already been successfully installed."
+                },
+                "scheduleId": {
+                    "type": "int",
+                    "description":"The unique Client Management database identifier of the operational rule's schedule. This value is returned by the /oprule/rule/user/assignment/{assignmentId} operation."
+                },
+                "installAsUser": {
+                    "type": "boolean",
+                    "description":"Set this value to true if the object is to be executed and installed on the local device as the logged user instead of with the  system account."
+                },
+                "notOnlyPrimaryUser": {
+                    "type": "boolean",
+                    "description":"Set this value to true if the assignments are applicable to the secondary users as well as the primary user. If set to false the assignments will only be carried out for the primary user."
+                },                
+                "userAssignPolicy": {
+                    "type": "string",
+                    "description":"Defines the type of policy to use for the user assignments: Assign at User Login: the assignment of the operational rules is carried out when the user logs on to a device. Assign at User Logout: the assignment is carried out when the user logs off. Assign Immediately: the assignment is carried out immediately after defining the assignment. Assign with Default Assignment Date: the assignment is carried out according to the defined default schedule. This option is only available if the Deploy to devices linked to users option is selected above."
+                },
+                "networkInstall": {
+                    "type": "boolean",
+                    "description":"Defines the type of installation of the package: Administrative: Choose this option if the package is to be installed in the classic MSI administrative installation mode. This option is only applicable to MSI packages. Network: Select this option if you want to extract the MSI/custom package created with BMC Deployment Manager into a specific network path from which the target devices will download. Normal: Select this option if the package is to be simply downloaded by the target devices and installed. This parameter is only available if the corresponding system variable is activated."
+                },                
+                "bypassTransferWindows": {
+                    "type": "boolean",
+                    "description":"Set this value to true if the distribution assignment is to be sent directly, ignoring any transfer window specifications which exist for the targets."
+                },
+                "wakeupDevices": {
+                    "type": "boolean",
+                    "description":"Set this value to true if the agent is to wake up any devices which are currently switched off, to immediately execute the assignment instead of waiting for the next startup to do so."
+                },
+                "executeWhileFails": {
+                    "type": "boolean",
+                    "description":"Defines if the operational rule/package is to be executed until its execution finally succeeds, i.e. the final status Executed is uploaded."
+                },
+                "uploadStatusEveryExec": {
+                    "type": "boolean",
+                    "description":"Defines that the status value is uploaded after every execution of the rule, even if it has not changed."
+                }
+            }
+        },
+        "UserGroupAssignment": {
+            "id": "UserGroupAssignment",
+            "description": "This class provides all the information required when updating an operational rule user group assignment.",
+            "properties": {
+                "status": {
+                    "type": "string",
+                    "description":"The overall status of the assigned object, for example if the operational rule has been downloaded and is ready to be executed or has already been successfully installed."
+                },
+                "scheduleId": {
+                    "type": "int",
+                    "description":"The unique Client Management database identifier of the operational rule's schedule. This value is returned by the /oprule/rule/user/group/assignment/{assignmentId} operation."
+                },
+                "installAsUser": {
+                    "type": "boolean",
+                    "description":"Set this value to true if the object is to be executed and installed on the local device as the logged user instead of with the system account."
+                },
+                "notOnlyPrimaryUser": {
+                    "type": "boolean",
+                    "description":"Set this value to true if the assignments are applicable to the secondary users as well as the primary user. If set to false the assignments will only be carried out for the primary user."
+                },                
+                "userAssignPolicy": {
+                    "type": "string",
+                    "description":"Defines the type of policy to use for the user assignments: Assign at User Login: the assignment of the operational rules is carried out when the user logs on to a device. Assign at User Logout: the assignment is carried out when the user logs off. Assign Immediately: the assignment is carried out immediately after defining the assignment. Assign with Default Assignment Date: the assignment is carried out according to the defined default schedule. This option is only available if the Deploy to devices linked to users option is selected above."
+                },
+                "networkInstall": {
+                    "type": "boolean",
+                    "description":"Defines the type of installation of the package: Administrative: Choose this option if the package is to be installed in the classic MSI administrative installation mode. This option is only applicable to MSI packages. Network: Select this option if you want to extract the MSI/custom package created with BMC Deployment Manager into a specific network path from which the target devices will download. Normal: Select this option if the package is to be simply downloaded by the target devices and installed. This parameter is only available if the corresponding system variable is activated."
+                },                
+                "bypassTransferWindows": {
+                    "type": "boolean",
+                    "description":"Set this value to true if the distribution assignment is to be sent directly, ignoring any transfer window specifications which exist for the targets."
+                },
+                "wakeupDevices": {
+                    "type": "boolean",
+                    "description":"Set this value to true if the agent is to wake up any devices which are currently switched off, to immediately execute the assignment instead of waiting for the next startup to do so."
+                },
+                "executeWhileFails": {
+                    "type": "boolean",
+                    "description":"Defines if the operational rule/package is to be executed until its execution finally succeeds, i.e. the final status Executed is uploaded."
+                },
+                "uploadStatusEveryExec": {
+                    "type": "boolean",
+                    "description":"Defines that the status value is uploaded after every execution of the rule, even if it has not changed."
+                }
+            }
+        },
+        "Device": {
+            "id": "Device",
+            "properties": {  
+                "id": {
+                    "type": "int",
+                    "description": "Device id"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Device name"
+                },
+                "groupName": {
+                    "type": "string",
+                    "description": "Device group name"
+                }
+            }
+        },
+        "DeviceGroup": {
+            "id": "DeviceGroup",
+            "properties": {  
+                "id": {
+                    "type": "int",
+                    "description":"Device group id"
+                },
+                "name": {
+                    "type": "string",
+                    "description":"Name of device group"
+                }
+            }
+        },
+        "User": {
+            "id": "User",
+            "properties": {  
+                "id": {
+                    "type": "int",
+                    "description": "User id."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "User name."
+                },
+                "group": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "UserGroup"
+                    }
+                }
+            }
+        },
+        "UserGroup": {
+            "id": "UserGroup",
+            "properties": {  
+                "id": {
+                    "type": "int",
+                    "description": "User group id."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "User group name."
+                }
+            }
+        },
+        "ScheduleId": {
+            "id": "ScheduleId",
+            "properties": {  
+                "id": {
+                    "type": "int",
+                    "description": "Schedule id"
+                }
+            }
+        },
+        "AssignmentId": {
+            "id": "AssignmentId",
+            "properties": {  
+                "id": {
+                    "type": "int"
+                }
+            }
+        },
+        "AssignmentDetails": {
+            "id": "AssignmentDetails",
+            "properties": {  
+                "assignment": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "AssignmentId"
+                    }
+                }
+            }
+        },
+        "ExecutionError": {
+            "id": "ExecutionError",
+            "properties": {  
+                "errorStepNumber": {
+                    "type": "int",
+                    "description": "Error step number information"
+                },
+                "errorType": {
+                    "type": "string",
+                    "description": "Error type information"
+                },
+                "errorCode": {
+                    "type": "int",
+                    "description": "Error code information"
+                },
+                "errorText": {
+                    "type": "string",
+                    "description": "Error information"
+                }
+            }
+        },
+        "DeviceAssignmentAttrsArray": {
+            "id": "DeviceAssignmentAttrsArray",
+            "properties": {  
+                "assignments": {
+                    "type": "Array",
+                    "items": {
+                        "$ref": "DeviceAssignmentAttrs"
+                    }
+                }
+            }
+        },
+        "DeviceAssignmentAttrsObject": {
+            "id": "DeviceAssignmentAttrsObject",
+            "properties": {  
+                "assignment": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "DeviceAssignmentObj"
+                    }
+                }
+            }
+        },
+        "DeviceAssignmentAttrs": {
+            "id": "DeviceAssignmentAttrs",
+            "properties": {
+                "id": {
+                    "type": "int",
+                    "description":"Assignment id for an operational rule to a device."
+                },
+                "device": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "Device"
+                    }
+                },
+                "schedule": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "ScheduleId"
+                    }
+                },   
+                "status": {
+                    "type": "string",
+                    "description":"Status of an operational rule assigned to device."
+                },
+                "transportMode": {
+                    "type": "string",
+                    "description":"Transport mode information of an operational rule assigned to device."
+                },
+                "enableTime": {
+                    "type": "boolean",
+                    "description":"Enable time setting information of an operational rule assigned to device."
+                },
+                "isActive": {
+                    "type": "boolean",
+                    "description":"Active/inactive setting information of an operational rule assigned to device."
+                },
+                "networkInstall": {
+                    "type": "boolean",
+                    "description":"Network install setting information of an operational rule assigned to device."
+                },
+                "executeWhileFails": {
+                    "type": "boolean",
+                    "description":"Execute while fails setting information of an operational rule assigned to device."
+                },
+                "uploadStatusEveryExec": {
+                    "type": "boolean",
+                    "description":"Upload status every execution setting information of an operational rule assigned to device."
+                },
+                "runAsCurrentuser": {
+                    "type": "boolean",
+                    "description":"Run as current user setting information of an operational rule assigned to device."
+                },
+                "executionError":{
+                    "type": "object",
+                    "items": {
+                        "$ref": "ExecutionError"
+                    }
+                }
+            }
+        },
+         "DeviceGroupAssignmentAttrsArray": {
+            "id": "DeviceGroupAssignmentAttrsArray",
+            "properties": {  
+                "assignments": {
+                    "type": "Array",
+                    "items": {
+                        "$ref": "DeviceGroupAssignmentAttrs"
+                    }
+                }
+            }
+        },
+        "DeviceGroupAssignmentAttrsObject": {
+            "id": "DeviceGroupAssignmentAttrsObject",
+            "properties": {  
+                "assignment": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "DeviceGroupAssignmentObj"
+                    }
+                }
+            }
+        },
+        "DeviceGroupAssignmentAttrs": {
+            "id": "DeviceGroupAssignmentAttrs",
+            "properties": {
+                "id": {
+                    "type": "int",
+                    "description":"Assignment id for the device group."
+                },
+                "deviceGroup": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "DeviceGroup"
+                    }
+                },
+                "schedule": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "ScheduleId"
+                    }
+                },   
+                "status": {
+                    "type": "string",
+                    "description": "Status of operational rule assigned to device group."
+                },
+                "enableTime": {
+                    "type": "boolean",
+                    "description": "Enable time setting information."
+                },
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Operational rule active setting information."
+                },
+                "networkInstall": {
+                    "type": "boolean",
+                    "description": "Network install setting information."
+                },
+                "executeWhileFails": {
+                    "type": "boolean",
+                    "description": "Execute while fails setting information."
+                },
+                "uploadStatusEveryExec": {
+                    "type": "boolean",
+                    "description": "Upload status every Execution setting information."
+                },
+                "runAsCurrentuser": {
+                    "type": "boolean",
+                    "description": "Run as current user setting information."
+                }
+            }
+        },
+         "UserAssignmentAttrsArray": {
+            "id": "UserAssignmentAttrsArray",
+            "properties": {  
+                "assignments": {
+                    "type": "Array",
+                    "items": {
+                        "$ref": "UserAssignmentAttrs"
+                    }
+                }
+            }
+        },
+        "UserAssignmentAttrsObject": {
+            "id": "UserAssignmentAttrsObject",
+            "properties": {  
+                "assignment": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "UserAssignmentObj"
+                    }
+                }
+            }
+        },
+        "UserAssignmentAttrsPut": {
+            "id": "UserAssignmentAttrsPut",
+            "description": "This class provides all necessary information to assign a specific user to an operational rule.",
+            "properties": {
+                "installAsUser": {
+                    "type": "boolean",
+                    "description": "Set this value to true if the object is to be executed and installed on the local device as the logged user instead of with the system account."
+                },    
+                "modeMyApps": {
+                    "type": "boolean",
+                    "description": "Set this value to true if the operational rule is to be assigned to the user via MyApps instead of being assigned to the user and the devices of which is he a user."
+                },  
+                "notOnlyPrimaryUser": {
+                    "type": "boolean",
+                    "description": "Set this value to true if the assignments are applicable to the secondary users as well as the primary user. If set to false the assignments will only be carried out for the primary user."
+                },                            
+                "userAssignPolicy": {
+                    "type": "string",
+                    "description": "Defines the type of policy to use for the user assignments: _ASSIGN_USERLOGIN_: the assignment of the operational rules is carried out when the user logs on to a device._ASSIGN_USERLOGOUT_: the assignment is carried out when the user logs off._ASSIGN_IMMEDIATELY_: the assignment is carried out immediately after defining the assignment._ASSIGN_DEFAULTSCHEDULE_: the assignment is carried out according to the defined default schedule. This option is only available if the Deploy to devices linked to users option is selected above.",
+                    "allowableValues":{
+                      "valueType":"LIST",
+                      "values":[
+                        "_ASSIGN_USERLOGIN_",
+                        "_ASSIGN_USERLOGOUT_",
+                        "_ASSIGN_IMMEDIATELY_",
+                        "_ASSIGN_DEFAULTSCHEDULE_"
+                      ]
+                    }
+
+                }
+            }
+        },
+        "UserAssignmentAttrs": {
+            "id": "UserAssignmentAttrs",
+            "properties": {
+                "id": {
+                    "type": "int"
+                },
+                "user": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "User"
+                    }
+                },
+                "schedule": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "ScheduleId"
+                    }
+                },   
+                "status": {
+                    "type": "string",
+                    "description":"Status of an operational rule assigned to user."
+                },
+                "createTime": {
+                    "type": "string",
+                    "description":"Date and time when an operational rule was assigned to user."
+                },
+                 "networkInstall": {
+                    "type": "boolean",
+                    "description":"Information of network install setting of an operational rule assigned to user."
+                }, 
+                "installAsUser": {
+                    "type": "boolean",
+                    "description":"Information of install as user setting of an operational rule assigned to user."
+                },                               
+                "userAssignPolicy": {
+                    "type": "string",
+                    "description":"Information of user assign policy setting of an operational rule assigned to user."
+                }
+            }
+        },
+         "UserGroupAssignmentAttrsArray": {
+            "id": "UserGroupAssignmentAttrsArray",
+            "properties": {  
+                "assignments": {
+                    "type": "Array",
+                    "items": {
+                        "$ref": "UserGroupAssignmentAttrs"
+                    }
+                }
+            }
+        },  
+        "UserGroupAssignmentAttrsObject": {
+            "id": "UserGroupAssignmentAttrsObject",
+            "properties": {  
+                "assignment": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "UserGroupAssignmentObj"
+                    }
+                }
+            }
+        },
+        "UserGroupAssignmentAttrs": {
+            "id": "UserGroupAssignmentAttrs",
+            "properties": { 
+                "id": {
+                    "type": "int"
+                },
+                "userGroup": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "UserGroup"
+                    }
+                },
+                "schedule": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "ScheduleId"
+                    }
+                },                
+                "status": {
+                    "type": "string",
+                    "description":"Status of operational rule assigned to user group."
+                },
+                "createTime": {
+                    "type": "string",
+                    "description":"Date and time when operational rule was assigned to user group."
+                },
+                 "networkInstall": {
+                    "type": "boolean",
+                    "description":"Information of network install setting of operational rule assigned to user group."
+                }, 
+                "installAsUser": {
+                    "type": "boolean",
+                    "description":"Information of install as user setting of operational rule assigned to user group."
+                },                               
+                "userAssignPolicy": {
+                    "type": "string",
+                    "description":"Information of user assign policy setting of operational rule assigned to user group."
+                }              
+            }
+        },
+        "MyAppsIcons": {
+            "id": "MyAppsIcons",            
+            "properties": {                
+                "icons": {                   
+                    "type": "List[string]"
+                }
+            }
+        },
+        "StepClasses": {
+            "id": "StepClasses",            
+            "properties": {                
+                "classes": {                   
+                    "type": "List[string]"
+                }
+            }
+        },
+        "StepList": {
+            "id": "StepList",            
+            "properties": {                
+                "steps": {                   
+                    "type": "Array",
+                    "items": {
+                        "$ref": "Steps"
+                    }
+                }
+            }
+        },
+        "Steps": {
+            "id": "Steps",
+            "properties": {  
+                "id": {
+                    "type": "int",
+                    "description": "ID of step."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of step."
+                },
+                "class": {
+                    "type": "string",
+                    "description": "Class of step."
+                },
+                "notes": {
+                    "type": "string",
+                    "description": "Additional informartion about step."
+                }
+            }
+        },
+        "StepDetails": {
+            "id": "StepDetails",
+            "properties": {                               
+                "step": {
+                    "items": {
+                        "$ref": "StepParameters"
+                    },
+                    "type": "object"
+                }
+            }
+        },
+        "StepParameters": {
+            "id": "StepParameters",
+            "properties": {                
+                "id": {
+                    "type": "int"
+                },
+                "params": {
+                    "items": {
+                        "$ref": "StepParameterValues"
+                    },
+                    "type": "Array"
+                }
+            }
+        },
+        "StepParameterValues": {
+            "id": "StepParameterValues",
+            "properties": {                
+                "id": {
+                    "type": "int",
+                    "description": "ID of step parameter values."
+                },
+                "label": {
+                    "type": "string",
+                    "description": "Label of step parameter values."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of step parameter values."
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Type of step parameter values."
+                }
+            }
+        },
+        "DeviceAssignmentObj": {
+            "id": "DeviceAssignmentObj",
+            "properties": {
+                "id": {
+                    "type": "int",
+                    "description":"Assignment id for rule."
+                },
+                "device": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "Device"
+                    }
+                },
+                "schedule": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "ScheduleId"
+                    }
+                },                                   
+                "status": {
+                    "type": "string",
+                    "description":"Status of operatioanl rule for assigned device."
+                },
+                "transportMode": {
+                    "type": "string",
+                    "description":"Transport mode information."
+                },
+                "scheduleId": {
+                    "type": "int",
+                    "description":"Schedule id for the operational rule for each device."
+                },
+                "bypassTransferWindows": {
+                    "type": "boolean",
+                    "description":"Information regarding bypass transfer windows."
+                },
+                "assignEnableTime": {
+                    "type": "boolean",
+                    "description":"Information regarding assign enable time setting."
+                },                
+                "isActive": {
+                    "type": "boolean",
+                    "description":"Information regarding assign enable time setting."
+                },
+                "networkInstall": {
+                    "type": "boolean",
+                    "description":"Information regarding network information setting."
+                },                
+                "specialCase": {
+                    "type": "int",
+                    "description":"Information regarding special case setting."
+                },
+                "wakeupDevices": {
+                    "type": "boolean",
+                    "description":"Information regarding special case setting."                    
+                },
+                "executeWhileFails": {
+                    "type": "boolean",
+                    "description":"Information regarding execute while fails setting."
+                },
+                "uploadStatusEveryExec": {
+                    "type": "boolean",
+                    "description":"Information regarding upload status every execution setting."
+                },
+                "runAsCurrentUser": {
+                    "type": "boolean",
+                    "description":"Information regarding run as current user setting."
+                },
+                "executionError":{
+                    "type": "object",
+                    "items": {
+                        "$ref": "ExecutionError"
+                    }
+                }
+            }
+        },
+        "DeviceGroupAssignmentObj": {
+            "id": "DeviceGroupAssignmentObj",
+            "properties": {
+                "id": {
+                    "type": "int",
+                    "description": "Assignment id of the relation ship between an operational rule and device group."
+                },
+                "deviceGroup": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "DeviceGroup"
+                    }
+                },
+                "schedule": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "ScheduleId"
+                    }
+                },  
+                "status": {
+                    "type": "string",
+                    "description":"Status of operatioanl rule assigned to device group."
+                },
+                "bypassTransferWindows": {
+                    "type": "boolean",
+                    "description":"Informatin of bypass transfer windows setting of an operatioanl rule assigned to device group."
+                },
+                "assignEnableTime": {
+                    "type": "boolean",
+                    "description":"Informatin of assign enable time setting of an operatioanl rule assigned to device group."
+                },                
+                "isActive": {
+                    "type": "boolean",
+                    "description":"Informatin of active/inactive setting of an operatioanl rule assigned to device group."
+                },
+                "networkInstall": {
+                    "type": "boolean",
+                    "description":"Informatin of network install setting of an operatioanl rule assigned to device group."
+                },                
+                "specialCase": {
+                    "type": "int",
+                    "description":"Informatin of special case setting of an operatioanl rule assigned to device group."
+                },
+                "wakeupDevices": {
+                    "type": "boolean",
+                    "description":"Informatin of wakeup devices setting of an operatioanl rule assigned to device group."
+                },
+                "executeWhileFails": {
+                    "type": "boolean",
+                    "description":"Informatin of execute while fails setting of an operatioanl rule assigned to device group."
+                },
+                "uploadStatusEveryExec": {
+                    "type": "boolean",
+                    "description":"Informatin of upload status every execution setting of an operatioanl rule assigned to device group."
+                },
+                "runAsCurrentUser": {
+                    "type": "boolean",
+                    "description":"Informatin of run as current user setting of an operatioanl rule assigned to device group."
+                }
+            }
+        },
+        "UserAssignmentObj": {
+            "id": "UserAssignmentObj",
+            "properties": {
+                "id": {
+                    "type": "int",
+                    "description":"User assignment Id."
+                },
+                "user": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "User"
+                    }
+                },
+                "schedule": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "ScheduleId"
+                    }
+                },   
+                "status": {
+                    "type": "string",
+                    "description": "Status of an operational rule assigned to user."
+                },                
+                "installAsUser": {
+                    "type": "boolean",
+                    "description": "Information of an operational rule for install as user setting."
+                },
+                "notOnlyPrimaryUser": {
+                    "type": "boolean",
+                    "description": "Information of an operational rule for not only primary user setting ."
+                },                
+                "userAssignPolicy": {
+                    "type": "string",
+                    "description": "Information of an operational rule for user assign policy setting."
+                },
+                "networkInstall": {
+                    "type": "boolean",
+                    "description": "Information of an operational rule for network install setting."
+                },                
+                "bypassTransferWindows": {
+                    "type": "boolean",
+                    "description": "Information of an operational rule for by pass transfer window setting."
+                },
+                "wakeupDevices": {
+                    "type": "boolean",
+                    "description": "Information of an operational rule for wake up devices setting."
+                },
+                "executeWhileFails": {
+                    "type": "boolean",
+                    "description": "Information of an operational rule for execute while fails setting."
+                },
+                "uploadStatusEveryExec": {
+                    "type": "boolean",
+                    "description": "Status of an operational rule assigned to user."
+                }
+            }
+        },
+        "UserGroupAssignmentObj": {
+            "id": "UserGroupAssignmentObj",
+            "properties": {
+                "id": {
+                    "type": "int",
+                    "description":"Assignment Id of an operational rule assigned to user group."
+                },
+                "userGroup": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "UserGroup"
+                    }
+                },
+                "schedule": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "ScheduleId"
+                    }
+                },   
+                "status": {
+                    "type": "string",
+                    "description": "Status of an operational rule assigned to user group."
+                },                
+                "installAsUser": {
+                    "type": "boolean",
+                    "description": "Information of install as user setting of an operational rule assigned to user group. "
+                },
+                "notOnlyPrimaryUser": {
+                    "type": "boolean",
+                    "description": "Information of not only primary user setting of an operational rule assigned to user group."
+                },                
+                "userAssignPolicy": {
+                    "type": "string",
+                    "description": "Information of user assign policy setting of an operational rule assigned to user group."
+                },
+                "networkInstall": {
+                    "type": "boolean",
+                    "description": "Information of network install setting of an operational rule assigned to user group."
+                },                
+                "bypassTransferWindows": {
+                    "type": "boolean",
+                    "description": "Information of bypass transfer windows setting of an operational rule assigned to user group."
+                },
+                "wakeupDevices": {
+                    "type": "boolean",
+                    "description": "Information of wakeup devices setting of an operational rule assigned to user group."
+                },
+                "executeWhileFails": {
+                    "type": "boolean",
+                    "description": "Information of execute while fails setting of an operational rule assigned to user group."
+                },
+                "uploadStatusEveryExec": {
+                    "type": "boolean",
+                    "description": "Information of upload status every execution setting of an operational rule assigned to user group."
+                }
+            }
+        },
+        "OpRuleDependencies": {
+            "id": "OpRuleDependencies",
+            "properties": {                
+                "dependencies": {
+                    "items": {
+                        "$ref": "OpRuleDependencyDetails"
+                    },
+                    "type": "Array",
+                    "description": "One dependency object for each dependend operational rule."
+                }
+            }
+        },
+         "OpRuleDependencyDetails": {
+            "id": "OpRuleDependencyDetails",
+            "properties": {  
+                "rule": {
+                    "items": {
+                        "$ref": "OpRuleDependencyResult"
+                    },
+                    "type": "object",
+                    "description": "One rule dependency object for each dependend operational rule providing information this rule."
+                },
+                "position": {
+                    "type": "int",
+                    "description": "The position number of the dependend rule."
+                }
+            }
+        },
+		 "OpRuleDependencyResult": {
+            "id": "OpRuleDependencyResult",
+            "properties": {               
+                "id": {
+                    "type": "int",
+                    "description": "The unique Client Management database ID of the operational rule."
+                },
+				"name": {
+                    "type": "string",
+                    "description": "The name of the dependend operational rule."
+                }
+            }
+        },
+        "OpRuleDependencyOrder": {
+            "id": "OpRuleDependencyOrder",
+            "properties": {  
+                "dependency": {
+                    "items": {
+                        "$ref": "OpRuleDependencyPosition"
+                    },
+                    "type": "object",
+                    "description": "One dependency object for each dependend operational rule indicating the position of the dependent rule."
+                }
+            }
+        },   
+        "OpRuleDependencyPosition": {
+            "id": "OpRuleDependencyPosition",
+            "description": "This class provides the position number of a specific dependent rule.",
+            "properties": {  
+                "position": {
+                    "type": "int",
+                    "description": "The position number of a specific dependent rule."
+                }
+            }
+        },        
+        "PackageAssignment": {
+            "id": "PackageAssignment",
+            "properties": {                
+                "packages": {
+                    "items": {
+                        "$ref": "PackageAssignmentDetails"
+                    },
+                    "type": "LIST",
+                    "description":"One Values object for each assigned package."
+                },
+                "ErrorCode": {
+                    "type": "int",
+                    "description":"Error code information"
+                }
+            }
+        },
+        "PackageAssignmentDetails": {
+            "id": "packages",
+            "properties": {
+                "id": {
+                    "type": "int",
+                    "description":"Package Id."
+                },
+                "name": {
+                    "type": "string",
+                    "description":"The name of the package."
+                },
+                "type": {
+                    "type": "string",
+                    "description":"The type of the package, which may be either CUSTOM for a custom package, MSI for an MSI package, RPM for an RPM package, or SNP for a snapshot package."
+                }
+            }
+        }
+    }
+}

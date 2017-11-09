@@ -1,0 +1,192 @@
+{
+    "apiVersion": "1.0",
+    "swaggerVersion": "1.1",
+    "basePath": "https://localhost:1611/api/1",
+    "resourcePath": "/licenses",
+    "apis": [
+        {
+            "path": "/licenses",
+            "description": "Get the list of purchased Client Management licenses",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get the list of purchased Client Management licenses",   
+                    "notes": " This operation returns the list of purchased Client Management licenses.",      
+                    "responseClass": "Licenses: This class returns the list of purchased Client Management licenses with all the available data.",             
+                    "nickname": "getLicenses",
+                    "parameters": [
+                        {
+                            "name": "externalLogin",
+                            "description": "The login name of the external integration administrator (say, footprint user) who will execute the operation.",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {        
+        "Licenses": {
+            "id": "Licenses",
+            "properties": {                
+                "Values": {
+                    "items": {
+                        "$ref": "licensesDetails"
+                    },
+                    "type": "object"
+                },
+                "ErrorCode": {
+                    "type": "int"
+                }
+            }
+        },
+        "licensesDetails": {
+            "id": "licensesDetails",
+            "properties": {                
+                "_DB_LICENSEFEATURE_DEVICECOUNT_": {
+                    "items": {
+                        "$ref": "licensesDetails"
+                    },
+                    "type": "object"
+                },
+                "_DB_LICENSEFEATURE_DISTRIBUTION_": {
+                    "items": {
+                        "$ref": "licensesDetails"
+                    },
+                    "type": "object"
+                },
+                "_DB_LICENSEFEATURE_DIRECTACCESS_": {
+                    "items": {
+                        "$ref": "licensesDetails"
+                    },
+                    "type": "object"
+                },
+                "_DB_LICENSEFEATURE_REMOTECONTROL_": {
+                    "items": {
+                        "$ref": "licensesDetails"
+                    },
+                    "type": "object"
+                },
+                "_DB_LICENSEFEATURE_INVENTORY_": {
+                    "items": {
+                        "$ref": "licensesDetails"
+                    },
+                    "type": "object"
+                },
+                "_DB_LICENSEFEATURE_TOPOLOGY_": {
+                    "items": {
+                        "$ref": "licensesDetails"
+                    },
+                    "type": "object"
+                },
+                "_DB_LICENSEFEATURE_MULTICAST_": {
+                    "items": {
+                        "$ref": "licensesDetails"
+                    },
+                    "type": "object"
+                },
+                "_DB_LICENSEFEATURE_APPLICATIONMANAGEMENT_": {
+                    "items": {
+                        "$ref": "licensesDetails"
+                    },
+                    "type": "object"
+                },
+                "_DB_LICENSEFEATURE_PATCHMANAGEMENTPREMIUM_": {
+                    "items": {
+                        "$ref": "licensesDetails"
+                    },
+                    "type": "object"
+                },
+                "_DB_LICENSEFEATURE_PATCHMANAGEMENTPREMIUMUPDATES_": {
+                    "items": {
+                        "$ref": "licensesDetails"
+                    },
+                    "type": "object"
+                },
+                "_DB_LICENSEFEATURE_GREENIT_": {
+                    "items": {
+                        "$ref": "licensesDetails"
+                    },
+                    "type": "object"
+                },
+                "_DB_LICENSEFEATURE_TASKMANAGEMENT_": {
+                    "items": {
+                        "$ref": "licensesDetails"
+                    },
+                    "type": "object"
+                },
+                "_DB_LICENSEFEATURE_COMPLIANCERULE_": {
+                    "items": {
+                        "$ref": "licensesDetails"
+                    },
+                    "type": "object"
+                },
+                "_DB_LICENSEFEATURE_SECURITYCFGUPDATES_": {
+                    "items": {
+                        "$ref": "licensesDetails"
+                    },
+                    "type": "object"
+                },
+                "_DB_LICENSEFEATURE_SWCATALOGUPDATES_": {
+                    "items": {
+                        "$ref": "licensesDetails"
+                    },
+                    "type": "object"
+                },
+                "_DB_LICENSEFEATURE_SWCATALOG_": {
+                    "items": {
+                        "$ref": "licensesDetails"
+                    },
+                    "type": "object"
+                },
+                "_DB_LICENSEFEATURE_OSDEPLOYMENT_": {
+                    "items": {
+                        "$ref": "licensesDetails"
+                    },
+                    "type": "object"
+                },
+                "_DB_LICENSEFEATURE_DEVICEMANAGEMENT_": {
+                    "items": {
+                        "$ref": "licensesDetails"
+                    },
+                    "type": "object"
+                }
+            }
+        },
+        "licensesDetails": {
+            "id": "licensesDetails",
+            "properties": {
+                "Name": {
+                    "type": "string"
+                },
+                "_DB_ATTR_LICENSE_COUNT_": {
+                    "type": "int"
+                },
+                "_DB_ATTR_LICENSE_EXPIRY_": {
+                    "type": "string"
+                },
+                "_DB_ATTR_LICENSE_STATUS_": {
+                    "type": "string"
+                },
+                "_DB_ATTR_SMALLICON_": {
+                    "type": "string"
+                },
+                "LicencesCount": {
+                    "type": "int"
+                },
+                "LicencesUsedCount": {
+                    "type": "int"
+                }
+            }
+        } 
+    }
+}

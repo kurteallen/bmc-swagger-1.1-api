@@ -1,0 +1,300 @@
+{
+    "apiVersion": "1.0",
+    "swaggerVersion": "1.1",
+    "basePath": "https://localhost:1611/api/1",
+    "resourcePath": "/schedule",
+    "apis": [      
+		{
+            "path": "/schedule/{scheduleId}", 
+            "description": "Get schedule details",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get schedule details",       
+                    "notes":"This operation returns the details of the operational rule assigment schedule.",
+                    "responseClass": "ScheduleResult: This class returns a schedule object containing the scheduler information for a specific assignment.",
+                    "nickname": "getSchedule",
+                    "parameters": [
+                        {
+                            "name":"scheduleId",
+                            "description": "The unique Client Management database identifier of the operational rule's schedule. This value is returned, depending on the assigned object - by either the /oprule/rule/device/assignment/{assignmentId}, /oprule/rule/device/group/assignment/{assignmentId}, /oprule/rule/user/assignment/{assignmentId}, or the /oprule/rule/user/group/assignment/{assignmentId} operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/schedule/{scheduleId}", 
+            "description": "Update schedule data",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Update schedule data",
+                    "notes":"This operation updates the parameters of the operational rule's schedule.",     
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "putSchedule",
+                    "parameters": [
+                        {
+                            "name":"scheduleId",
+                            "description": "The unique Client Management database identifier of the operational rule's schedule. This value is returned, depending on the assigned object - by either the /oprule/rule/device/assignment/{assignmentId}, /oprule/rule/device/group/assignment/{assignmentId}, /oprule/rule/user/assignment/{assignmentId}, or the /oprule/rule/user/group/assignment/{assignmentId} operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "Schedule"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter, 16055 - The rule is waiting to be sent"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {
+        "ScheduleResult": {
+            "id": "ScheduleResult",
+            "properties": {
+                "schedule": {
+                    "type": "object",
+                    "description":"The scheduler information for a specific assignment.",
+                    "items": {
+                        "$ref": "ScheduleDetails"
+                    }
+                }
+            }
+        },
+        "ScheduleDetails": {
+            "id": "ScheduleDetails",
+            "properties": {
+                "id": {
+                    "type": "int",
+                    "description":"The unique Client Management database identifier of the operational rule's schedule."
+                },
+                "name": {
+                    "type": "string",
+                    "description":"The name of the scheduler."
+                },
+                "validity": {
+                    "type": "object",
+                    "description":"A validity object containing the scheduler validity information for a specific assignment.",
+                    "items": {
+                        "$ref": "ScheduleValidity"
+                    }
+                },
+                "frequency": {
+                    "type": "object",
+                    "description":"A frequency object containing the scheduler frequency information for a specific assignment.",
+                   "items": {
+                        "$ref": "ScheduleFrequency"
+                    }
+                }
+            }
+        },
+        "Schedule": {
+            "id": "Schedule",
+            "description": "This class contains the scheduler information for a specific assignment.",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description":"The name of the scheduler."
+                },
+                "validity": {
+                    "type": "object",
+                    "description":"A validity object containing the scheduler validity information for a specific assignment.",
+                    "items": {
+                        "$ref": "ScheduleValidity"
+                    }
+                },
+                "frequency": {
+                    "type": "object",
+                    "description":"A frequency object containing the scheduler frequency information for a specific assignment.",
+                   "items": {
+                        "$ref": "ScheduleFrequency"
+                    }
+                }
+            }
+        },
+        "ScheduleValidity": {
+            "id": "ScheduleValidity",
+            "description": "This class returns a validity object containing the scheduler validity information for a specific assignment.",
+            "properties": {
+                "execution": {
+                    "type": "string",
+                    "description": "Displays the condition on which the operational rule is executed on the assigned target(s). The possible values are disabled which indicates that the scheduler is currently disabled, immediate executes the rule immediately, nextStartup executes the rule a the next startup of the agent on the target and at executes the rule at a specific date and time.",
+                    "allowableValues":{
+                      "valueType":"LIST",
+                      "values":[
+                        "disabled",
+                        "immediate",
+                        "nextStartup",
+                        "at"
+                      ]
+                    }
+                },
+                "executionAt": {
+                    "type": "int",
+                    "description": "This value displays the date and time of execution in form of a timestamp value. It is only applicable if the option at is selected as the execution above."
+                },
+                "termination": {
+                    "type": "string",
+                    "description": "Displays the condition on which the operational rule is executed for the last time on the assigned target(s). The possible values are never in which case the rule is executed according to the defined schedule until another option is selected or it is unassigned, runCount executes the rule for the specified number of times and then terminates the execution cycle and at which terminates the execution cycle at a specific date and time.",
+                    "allowableValues":{
+                      "valueType":"LIST",
+                      "values":[
+                        "never",
+                        "runCount",
+                        "at"
+                      ]
+                    }
+                },
+                "terminationRunCount": {
+                    "type": "int",
+                    "description": "The number of times the rule is executed. This value is only applicable if the option runCount is selected as the termination above."
+                },
+                "terminationAt": {
+                    "type": "int",
+                    "description": "This value displays the date and time at which the execution is terminated in form of a timestamp value. It is only applicable if the option at is selected as the termination above."
+                }
+            }
+        },
+        "ScheduleFrequency": {
+            "id": "ScheduleFrequency",
+            "description": "This class returns a frequency object containing the scheduler frequency information for a specific assignment.",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "This value defines the frequency with which the operational rule is executed on the assigned target(s). The possible values are startup executes the rule the target device is booted, sessionStartup executes the rule when a the session is started on the target, sessionClose executes the rule when the session is closed on the target, schedule defines that the rule is executed according to a specific schedule defined via the following values and cron defines that the execution frequency is specified via a Cronspec.",
+                     "allowableValues":{
+                      "valueType":"LIST",
+                      "values":[
+                        "startup",
+                        "sessionStartup",
+                        "sessionClose",
+                        "schedule",
+                        "cron"
+                      ]
+                    }
+                },
+                "scheduleType": {
+                    "type": "string",
+                    "description": "This value defines the execution frequency. The possible values are daily for a daily execution, dayOfWeek which defines one or more specific days of the week for execution, or dayOfMonth in which case the rule is only executed on one or more specific days of each month.",
+                    "allowableValues":{
+                      "valueType":"LIST",
+                      "values":[
+                        "daily",
+                        "dayOfWeek",
+                        "dayOfMonth"
+                      ]
+                    }
+                },
+                "scheduleDayOfWeek": {
+                    "type": "Array",
+                    "items": {
+                        "type": "int"
+                    },
+                    "description": "The days of the week on which the rule is executed, they may vary from 0-6 (0 is Sunday). This value is only applicable if dayOfWeek was selected as the scheduleType above."
+                },
+                "scheduleDayOfMonth": {
+                    "type": "Array",
+                    "items": {
+                        "type": "int"
+                    },
+                    "description": "The days of the month on which the rule is executed, they may vary from 1-31. This value is only applicable if dayOfMonth was selected as the scheduleType above."
+                },
+                "scheduleMonths": {
+                    "type": "Array",
+                    "description": "The months in which the rule is executed according to the defined schedule, they may vary from 1-12.",
+                    "items": {
+                        "type": "int"
+                    }
+                },
+                "period": {
+                    "type": "string",
+                    "description": "The frequency at which the execution is launched. This may be at to launch only once per day,  1mn to execute every minute of the above selected frequency, 5/10/15/20/30mn to execute every 5, 10, 15, 20, 30 and 60 minutes of the above selected frequency.",
+                    "allowableValues":{
+                      "valueType":"LIST",
+                      "values":[
+                        "at",
+                        "1mn",
+                        "5mn",
+                        "10mn",
+                        "15mn",
+                        "20mn",
+                        "30mn",
+                        "60mn"
+                      ]
+                    }
+                },
+                "periodAt": {
+                    "type": "int",
+                    "description": "The hour and minute values at which the rule is executed, in form of HH:MM. This value is only applicable if the  period is defined as  at - Only once ."
+                },
+                "periodFrom": {
+                    "type": "string",
+                    "description": "The hour and minute values from which on the rule is executed, in form of HH:MM. This value is only applicable if the  period is NOT defined as  at - Only once ." 
+                },
+                "periodTo": {
+                    "type": "string",
+                    "description": "The hour and minute values at which on the rule execution is stopped, in form of HH:MM. This value is only applicable if the  period is NOT defined as  at - Only once ." 
+                },
+                "cron": {
+                    "type": "object",
+                    "description": "The Cronspec schedule object containing the scheduler information in this format. The value is only applicable if the type is defined as  cron.",
+                    "items": {
+                        "$ref": "ScheduleCron"
+                    }
+                }
+            }
+        },
+        "ScheduleCron": {
+            "id": "ScheduleCron",
+            "properties": {
+                "second": {
+                    "type": "string",
+                    "description": "The second value of the minute at which the execution is to start, it may vary from 0-59 with a maximum resolution of 5 seconds."
+                },
+                "minute": {
+                    "type": "string",
+                    "description": "The minute value of the hour at which the execution is to start, it may vary from 0-59."
+                },
+                "hour": {
+                    "type": "string",
+                    "description": "The hour value at which the execution is to start, it may vary from 0-23."
+                },
+                "day": {
+                    "type": "string",
+                    "description": "The number representing the days of the month that the object is to be executed, they may vary from 1-31."
+                },
+                "month": {
+                    "type": "string",
+                    "description": "The number representing the months that the object is to be executed, they may vary from 1-12 (1 is January)."
+                },
+                "weekday": {
+                    "type": "string",
+                    "description": "The number representing the week day that the object is to be executed, they may vary from 0-6 (0 is Sunday)."
+                }
+            },
+            "description": "Defines the execution schedule of an operational rule in Cronspec format. The following general rules apply: 1. Each set of ranges can be preceded by a % sign which will change the meaning from absolute to relative number. For instance if [seconds] equals 29 the timer will get fired each time the absolute time ends with a number of seconds equal to 29 (e.g., 11:43:29) whereas %20 means every 20 seconds every minute, i.e. at 13:25:00, 13:25:20, 13:25:40, 13:26:00, etc. 2. Ranges are comma-separated lists. A range is made of a number eventually followed by a '-' sign and another number. 3. The wildcard character asterisks (*) may be used to indicate any value."
+        }        
+    }
+}

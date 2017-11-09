@@ -1,0 +1,524 @@
+{
+
+    "apiVersion": "1.0",
+    "swaggerVersion": "1.1",
+    "basePath": "https://localhost:1611/api/1",
+    "resourcePath": "/reports",
+    "apis": [                
+        {
+            "path": "/reports/folders",
+            "description": "Get report folders under root node.",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get report folders under root node.",
+					"notes": "This operation returns the package folders located directly at the root level of the main Reports node.",
+                    "responseClass": "ReportFolderArray: This class returns the list of all folders and, if requested, all reports, that are children of a specific report folder including the main Reports node.",
+                    "nickname": "reportFolderHierarchies",
+                    "parameters": [ 
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the report folders or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the group (name), the date at which the group was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "createDate",
+                                    "updateDate"                                   
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "hierarchy",
+                            "description": "Select from this drop-down box if the reports are listed in the return class as well, (true) for include the list, (false) for don't include.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query", 
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }                    
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+        },		
+        {
+            "path": "/reports/folder/{folderId}",
+            "description": "Get report folder subfolders",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get report folder subfolders",
+					"notes": "This operation returns the report folders that are members of a specific report folder.",
+                    "responseClass": "ReportFolderArray: This class returns the list of all folders and, if requested, all reports, that are children of a specific report folder including the main Reports node.",
+                    "nickname": "ReportSubFolderHierarchies",
+                    "parameters": [  
+                        {
+                            "name": "folderId",
+                            "description": "The unique Client Management database identifier of the report folder. This value is returned by either the GET /reports/folders or a GET /reports/folder/{folderId} operation.",
+                            "paramType": "path",                          
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the report folders or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the group (name), the date at which the group was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "hierarchy",
+                            "description": "Select from this drop-down box if the reports are listed in the return class as well, (true) for include the list, (false) for don't include.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query", 
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/reports/reports",
+            "description": "List reports at root level.",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "List reports at root level.",
+                    "notes": "This operation returns the reports located directly at the root level of the main Reports node.",
+                    "responseClass": "ReportArray: This class returns the list of reports in the specified location together with the information available for each report.",
+                    "nickname": "groupReports",
+                    "parameters": [
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the reports or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the group (name), the date at which the group was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query", 
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                         {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCode: 1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/reports/folder/{folderId}/reports",
+            "description": "List reports of a report sub folder.",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "List reports of a report sub folder.",
+                    "notes": "This operation returns the list of reports located below a specific report folder.",
+                    "responseClass": "ReportArray: This class returns the list of reports in the specified location together with the information available for each report.",
+                    "nickname": "groupSubgroupReports",
+                    "parameters": [
+                        {
+                            "name": "folderId",
+                            "description": "ID of the report folder for which reports are to be fetched. Folder Id can be fetched using GET /reports/folder web service.",
+                            "paramType": "path", 
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the reports or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the group (name), the date at which the group was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query", 
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                         {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCode: 1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/reports/public",
+            "description": "Get the list of all public reports",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get the list of all public reports",
+					"notes": "This operation returns the list of all reports generated within a specific timeframe that are publicly available.",
+                    "responseClass": "ReportsPublic: This class returns the list of all generated public reports.",
+                    "nickname": "listOfPublicReports",
+                    "parameters": [
+                        {
+                            "name": "DateFrom",
+                            "description": "The earliest possible date that a public report to be found may have been created on. The date must be entered in the following format: MM/DD/YYYY.",
+                            "paramType": "query",                            
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "DateTo",
+                            "description": "The last possible date that a public report to be found may have been created on. The date must be entered in the following format: MM/DD/YYYY.",
+                            "paramType": "query",                            
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {        
+        "ReportFolderArray": {
+            "id": "ReportFolderArray",
+            "properties": {
+                "folders": {
+                    "items": {
+                        "$ref": "ReportFolderInfo"
+                    },
+                    "type": "array"
+                },  
+                "reports": {
+                    "items": {
+                        "$ref": "ReportArray"
+                    },
+                    "type": "array"
+                },  
+                "ErrorCode": {
+                    "type": "int",
+					"description": "The error code returned by the operation if the operation failed or 0 for a successful operation."
+                }
+            }
+        },
+        "ReportArray": {
+            "id": "ReportArray",
+            "properties": {
+                "reports": {
+                    "items": {
+                        "$ref": "ReportInfo"
+                    },
+                    "type": "array"
+                },  
+                "ErrorCode": {
+                    "type": "int",
+					"description": "The error code returned by the operation if the operation failed or 0 for a successful operation."
+                }
+            }
+        },
+        "ReportInfo": {
+            "id": "ReportInfo",
+            "properties": {
+                "id": {
+                    "type": "int",
+					"description": "The unique Client Management database identifier of the report."
+                },
+                "name": {
+                    "type": "string",
+					"description": "The name of the report."
+                },
+                "reportTitle": {
+                    "type": "string",
+					"description": "The title of report."
+                },
+                "reportType": {
+                    "type": "string",
+					"description": "The type of the report, that is, if it is style or template based."
+                },
+                "createDate": {
+                    "type": "int",
+					"description": "The date and time on which the report was created."
+                },
+                "updateDate": {
+                    "type": "int",
+					"description": "The date and time on which the report was last updated."
+                }
+            }
+        },
+        "ReportFolderInfo": {
+            "id": "ReportFolderInfo",
+            "properties": {
+                "id": {
+                    "type": "int",
+					"description": "The unique Client Management database identifier of the report folder."
+                },
+                "name": {
+                    "type": "string",
+					"description": "The name of the report folder."
+                },
+                "createDate": {
+                    "type": "int",
+					"description": "The date and time on which the report folder was created."
+                },
+                "updateDate": {
+                    "type": "int",
+					"description": "The date and time on which the report folder was last updated."
+                }
+            }
+        },
+        "ReportsPublic": {
+            "id": "ReportsPublic",
+            "properties": {
+                "Values": {
+                    "items": {
+                        "$ref": "ReportsPublicValues"
+                    },
+                    "type": "LIST"
+                },                
+                "ErrorCode": {
+                    "type": "int",
+					"description": "The error code returned by the operation if the operation failed or 0 for a successful operation."
+                }
+            }
+        },
+        "ReportsPublicValues": {
+            "id": "ReportsPublicValues",
+            "properties": {
+                "ObjectId": {
+                    "type": "int",
+					"description": "The unique Client Management database identifier of the object type."
+                },
+                "ReportName": {
+                    "type": "string",
+					"description": "The user friendly name of the report."
+                },
+                "ReportTitle": {
+                    "type": "string",
+					"description": "The title of the report."
+                },
+                "ReportDate": {
+                    "type": "string",
+					"description": "The date and time at which the report was generated and made publicly available."
+                },
+                "GroupName": {
+                    "type": "string",
+					"description": "The name or names of the object the public report is assigned to."
+                },
+                "XMLStatus": {
+                    "type": "string",
+					"description": "Indicates if the public report is available in XML format, possible values are _STATUS_AVAILABLE_ for available or _STATUS_NOTREQUESTED_ if the report was not generated in this format."
+                },
+                "HTMLStatus": {
+                    "type": "string",
+					"description": "Indicates if the public report is available in HTML format, possible values are _STATUS_AVAILABLE_ for available or _STATUS_NOTREQUESTED_ if the report was not generated in this format."
+                },
+                "PDFStatus": {
+                    "type": "string",
+					"description": "Indicates if the public report is available in PDF format, possible values are _STATUS_AVAILABLE_ for available or _STATUS_NOTREQUESTED_ if the report was not generated in this format."
+                },
+                "ReportFile": {
+                    "type": "string",
+					"description": "The filename of the report."
+                },
+                "Path": {
+                    "type": "string",
+					"description": "The path to the file of the report including the filename."
+                }
+            }
+        }
+    }
+}

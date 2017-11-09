@@ -1,0 +1,578 @@
+{
+    "apiVersion": "1.0",
+    "swaggerVersion": "1.1",
+    "basePath": "https://localhost:1611/api/1",
+    "resourcePath": "/object",
+    "apis": [
+		{
+            "path": "/object/{objectId}/attrs",
+            "description": "Get the attributes list of a specific object type",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get the attributes list of a specific object type",   
+					"notes": "This operation returns the list of all attributes of a specific object type by providing Id of object type (Object type Id can be fetched using GET /objects web service).",
+                    "responseClass": "GetObjectAttrsResult: This class returns the list of object attributes of a specific object type.",
+                    "nickname": "getAssetCoreObjectTypeAttrs",
+                    "parameters": [
+                        {
+                            "name": "objectId",
+                            "description": "The unique Client Management database identifier of the object. This value is returned by the GET /objects operation.",
+                            "paramType": "path",
+                            "defaultValue": null,
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCodes: 15"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/object/{objectId}/insts",
+            "description": "Get object type instances",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get object type instances",
+					"notes": "With this operation you can find all instances of a specific object type." ,                   
+                    "responseClass": "GetObjectInstsResult: This class returns the list of instances of a specific object type.",
+                    "nickname": "getAssetCoreObjectTypeInsts",
+                    "parameters": [
+                        {
+                            "name": "objectId",
+                            "description": "The unique Client Management database identifier of the object. This value is returned by the GET /objects operation.",
+                            "paramType": "path",
+                            "defaultValue": null,
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "source",
+                            "description": "Select the object under which to execute the search.",
+                            "paramType": "query",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "All",
+                                    "Hierarchy",
+                                    "Topology",
+                                    "Objects Found"                                    
+                                ]
+                            },
+                            "defaultValue": "All",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "attr",
+                            "description": "The attribute name to be searched. Specific attribute names may be found via the<msgph> GET /object/{objectId}/attrs </msgph>operation.",
+                            "paramType": "query",
+                            "defaultValue": null,
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "operator",
+                            "description": "The search operator to be applied, which may be either <i>_DB_QUERYOPERATOR_CONTAINS_</i> if the search result is only to contain the value entered into the attr field or <i>_DB_QUERYOPERATOR_EQUALS_</i> if it is to be an exact match of this value.",
+                            "paramType": "query",
+                            "defaultValue": "_DB_QUERYOPERATOR_CONTAINS_",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "_DB_QUERYOPERATOR_CONTAINS_",
+                                    "_DB_QUERYOPERATOR_EQUAL_"
+                                ]
+                            },
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "value",
+                            "description": "The corresponding attribute value that is to be found.",
+                            "paramType": "query",
+                            "defaultValue": null,
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCodes: 15"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/object/{objectId}/inst/{instId}/attrs",
+            "description": "Get value of attributes of an instance by object type",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get value of attributes of an instance by object type",     
+					"notes":"This operation finds attribute values of an instance, by providing instance Id and the object type it belongs to. Response class ObjectInstAttrs returns list of attributes and values and this list varies based on it's object type. Object type and it's attribute list can be fetched using GET /object/{objectId}/attrs web service.",
+                    "responseClass": "GetObjectInstAttrsResult",
+                    "nickname": "getAssetCoreObjectTypeInstAttrs",
+                    "parameters": [
+                        {
+                            "name": "objectId",
+                            "description": "The unique Client Management database identifier of the object type. List of Object Types can be fetched using GET /Objects Web Service, e.g. (Object type: Device-100, Processor-155).",
+                            "paramType": "path",
+                            "defaultValue": null,
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "instId",
+                            "description": "Object type instance identifier. Instance Id can be fetched using /object/{objectId}/insts web service (For Device-100 Object type, 1000 is generally instance Id of master device.",
+                            "paramType": "path",
+                            "defaultValue": null,
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCodes: 15"
+                        }
+                    ]
+                }
+            ]
+        },		 
+        {
+            "path": "/object",
+            "description": "Create an object type",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Create an object type",
+					"notes": "This operation allows to create new object types by specifying inventory class under which it should fall.",
+                    "responseClass": "PutObjectResult",
+                    "nickname": "putAssetCoreObjectType",
+                    "parameters": [
+                        {
+                            "name": "class",
+                            "description": "Inventory class for new object type. The object type class exists for general asset summary, software inventory, hardware inventory, custom inventory, security, power management inventory, connectivity inventory or inventory of virtual devices.",
+                            "paramType": "query",
+                            "defaultValue": "_DB_OBJECTTYPCLASS_BASIC_",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                 "values": [									
+								"_DB_OBJECTTYPCLASS_BASIC_",
+								"_DB_OBJECTTYPCLASS_SOFTWAREINVENTORY_",
+								"_DB_OBJECTTYPCLASS_HARDWAREINVENTORY_",
+								"_DB_OBJECTTYPCLASS_CUSTOMINVENTORY_",
+								"_DB_OBJECTTYPCLASS_SECURITYINVENTORY_", 
+								"_DB_OBJECTTYPCLASS_POWERMANAGEMENTINVENTORY_",
+								"_DB_OBJECTTYPCLASS_CONNECTIVITYINVENTORY_",
+								"_DB_OBJECTTYPCLASS_VIRTUALINFRASTRUCTUREINVENTORY_" 
+                                ]
+                            },
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "type",
+                            "description": "Name of the new object type to create.",
+                            "paramType": "query",
+                            "defaultValue": null,
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCodes: 15"
+                        }
+                    ]
+                }
+            ]
+        },
+		{
+            "path": "/object/{objectId}/attr",
+            "description": "Create an attribute of object type",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Create an attribute of object type", 
+					"notes": "This operation allows to add new attributes to an existing object type. List of Object Types can be fetched using GET /Objects Web Service, e.g. (Object type: Device-100, Processor-155). <br>The body must contain the name and data type as shown in eg. { \"AttrName\": \"NameOfNewAttr\", \"AttrType\": \"AttrDataType - string|int|boolean\" }. <br> No need to create body/parameters from scratch, clicking within \"Snippet\" box will set parameter value, \"Description\" box gives you detail on what values will go against each parameter.",					
+                    "responseClass": "PutObjectAttrResult",
+                    "nickname": "putAssetCoreObjectTypeAttr",
+                    "parameters": [
+                        {
+                            "name": "objectId",
+                            "description": "The unique Client Management database identifier of the object type. List of Object Types can be fetched using GET /Objects Web Service, e.g. (Object type: Device-100, Processor-155)",
+                            "paramType": "path",
+                            "defaultValue": null,
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "PutObjectAttr"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCodes: 15"
+                        }
+                    ]
+                }
+            ]
+        },
+		{
+            "path": "/object/{objectId}/inst/{instId}/attrs",
+            "description": "Set value of attributes of an instance by object type",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Set value of attributes of an instance by object type",     
+					"notes":"This operation allows you to set value of attributes of an object type instance. List of attributes based on it's object type and values can be entered seperated by comma(,). Attribute list of object type can be fetched using GET /object/{objectId}/attrs web service. <br> No need to create body/parameters from scratch, clicking within \"Snippet\" box will set parameter value, \"Description\" box gives you detail on what values will go against each parameter.",
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "putAssetCoreObjectTypeInstAttrs",
+                    "parameters": [
+                        {
+                            "name": "objectId",
+                            "description": "The unique Client Management database identifier of the object type. List of Object Types can be fetched using GET /Objects Web Service, e.g. (Object type: Device-100, Processor-155)",
+                            "paramType": "path",
+                            "defaultValue": null,
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "instId",
+                            "description": "Object type instance identifier. Instance Id can be fetched using /object/{objectId}/insts web service (For Device-100 Object type, 1000 is generally instance Id of master device.",
+                            "paramType": "path",
+                            "defaultValue": null,
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",                          
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "ObjectTypeAttr"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCodes: 15"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/object/{objectId}",
+            "description": "Delete an object type",
+            "operations": [
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete an object type",
+					"notes": "This operation allows to delete a specific object type.",                    
+                    "responseClass": "DeleteObjectResult",
+                    "nickname": "deleteAssetCoreObjectType",
+                    "parameters": [
+                        {
+                            "name": "objectId",
+                            "description": "The unique Client Management database identifier of the object type. List of Object Types can be fetched using GET /Objects Web Service, e.g. (Object type: Device-100, Processor-155)",
+                            "paramType": "path",
+                            "defaultValue": null,
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCodes: 15"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/object/{objectId}/attr/{attrId}",
+            "description": "Delete an attribute of object type",
+            "operations": [
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete an attribute of object type", 
+					"notes": "This operation allows to delete a specific attribute of an object type.",					
+                    "responseClass": "DeleteObjectAttrResult",
+                    "nickname": "deleteAssetCoreObjectTypeAttr",
+                    "parameters": [
+                        {
+                            "name": "objectId",
+                            "description": "The unique Client Management database identifier of the object type. List of Object Types can be fetched using GET /Objects Web Service, e.g. (Object type: Device-100, Processor-155)",
+                            "paramType": "path",
+                            "defaultValue": null,
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "attrId",
+                           "description": "Object type attribute identifier. Attribute Id can be fetched using /object/{objectId}/attrs web service.",
+                            "paramType": "path",
+                            "defaultValue": null,
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCodes: 15"
+                        }
+                    ]
+                }
+            ]
+        }        
+    ],
+    "models": {
+        "PutObjectResult": {
+            "id": "PutObjectResult",
+            "properties": {                
+                "Values": {
+                    "items": {
+                        "$ref": "ObjectResult"
+                    },
+                    "type": "object"
+                },
+                "ErrorCode": {
+                    "type": "int",
+					"description": "The error code of executed operation, 0 when successful."
+                }
+            }
+        },
+        "ObjectResult": {
+            "id": "ObjectResult",
+            "properties": {
+                "ObjectTypeId": {
+                    "type": "int",
+					"description": "The unique Client Management database identifier of Object type."
+                }
+            }
+        },
+        "DeleteObjectResult": {
+            "id": "DeleteObjectResult",
+            "properties": {                
+                "ErrorCode": {
+                    "type": "int",
+					"description": "The error code of executed operation, 0 when successful."
+                }
+            }
+        },
+        "PutObjectAttr": {
+            "id": "PutObjectAttr",
+            "properties": {                
+                "AttrName": {
+                    "type": "string",
+					"description": "The name of attribute."
+                },
+                "AttrType": {
+                    "type": "string",
+					"description": "The data type of attribute. string, int, boolean."
+                }
+            }
+        },
+        "PutObjectAttrResult": {
+            "id": "PutObjectAttrResult",
+            "properties": {                
+                "ObjectTypeId": {
+                    "type": "int",
+					"description": "The unique Client Management database identifier of Object type."
+                },
+                "AttrName": {
+                    "type": "string",
+					"description": "The name of attribute."
+                },
+                "AttrType": {
+                    "type": "string",
+					"description": "The data type of attribute. string, int, boolean."
+                },
+                "ErrorCode": {
+                    "type": "int",
+					"description": "The error code of executed operation, 0 when successful."
+                }
+            }
+        },
+        "DeleteObjectAttrResult": {
+            "id": "DeleteObjectAttrResult",
+            "properties": {                
+                "ErrorCode": {
+                    "type": "int",
+					"description": "The error code of executed operation, 0 when successful."
+                },
+                "AttrId": {
+                    "type": "int",
+					"description": "The unique Client Management database identifier of an attribute of object type."
+                },
+                "ObjectTypeId": {
+                    "type": "int",
+					"description": "The unique Client Management database identifier of Object type."
+                }
+            }
+        },
+        "GetObjectAttrsResult": {
+            "id": "GetObjectAttrsResult",
+            "properties": {                
+                "attrs": {
+                    "items": {
+                        "$ref": "ObjectAttr"
+                    },
+                    "type": "Array"
+                }
+            }
+        },
+        "ObjectAttr": {
+            "id": "ObjectAttr",
+            "properties": {                
+                "name": {
+                    "type": "string",
+					"description": "The name of an attribute."
+                },
+				"column": {
+                    "type": "string",
+					"description": "Attribute's field name in database."
+                },
+				"type": {
+                    "type": "string",
+					"description": "Datatype of an attribute."
+                },
+				"enumName": {
+                    "type": "string",
+					"description": "Enumeration name if any."
+                },
+				"units": {
+                    "type": "string",
+					"description": "Units in which attribute's data should be taken into account, say, frequency is measured in Hz."
+                },
+				"readOnly": {
+                    "type": "boolean",
+					"description": "Whether attribute is read only or not."
+                },				
+				"displayOrder": {
+                    "type": "int",
+					"description": "Order in which attribute will get displayed."
+                },
+				"displayInList": {
+                    "type": "boolean",
+					"description": "Whether to display in list or not."
+                },
+				"needTranslation": {
+                    "type": "boolean",
+					"description": "Whether there's need to translate attribute's value or not."
+                },
+				"valueCheckRegex": {
+                    "type": "string",
+					"description": "Regular expression to be satisfied while entering attribute's value."
+                },
+				"id": {
+                    "type": "int",
+					"description": "Unique Id of an attribute."
+                }
+            }
+        },
+        "GetObjectInstsResult": {
+            "id": "GetObjectInstsResult",
+            "properties": {                
+                "insts": {
+                    "items": {
+                        "$ref": "ObjectInst"
+                    },
+                    "type": "List"
+                }
+            }
+        },
+        "ObjectInst": {
+            "id": "ObjectInst",
+            "properties": {                
+                "id": {
+                    "type": "int",
+					"description": "Id of Instance of an object."
+                },
+                "name": {
+                    "type": "string",
+					"description": "Name of instance of an object."
+                },
+                "smallIcon": {
+                    "type": "string",
+					"description": "The name and relative path of the small icon file to be used to represent this object."
+                }
+            }
+        },
+        "GetObjectInstAttrsResult": {
+            "id": "GetObjectInstAttrsResult",
+            "properties": {                
+                "Values": {
+                    "items": {
+                        "$ref": "ObjectInstAttrs"
+                    },
+                    "type": "List"
+                }
+            },
+            "ErrorCode": {
+                "type": "int",
+				"description": "The error code of executed operation, 0 when successful."
+            }
+        },
+        "ObjectInstAttrs": {
+            "id": "ObjectInstAttrs",
+            "properties": {                
+                "Actual-AttrName": {
+                    "type": "string|int|boolean",
+					"description":" List of attributes and data type of values varies on it's object type. Object type and it's attribute list can be fetched using GET /object/{objectId}/attrs web service."
+                }
+            }
+        },
+        "ObjectTypeAttr": {            
+            "id": "ObjectTypeAttr",
+            "properties": {                
+                "Actual-AttrName": {
+                    "type": "string|int|boolean",
+					"description": "Actual attribute names and data type of any object type Id can be fetched using GET /object/{objectId}/attrs web service"
+                }
+            }
+        },
+        "OperationResult": {
+            "id": "OperationResult",
+            "properties": {                
+                "errorCode": {
+                    "type": "int"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,1485 @@
+{
+    "apiVersion": "1.0",
+    "swaggerVersion": "1.1",
+    "basePath": "https://localhost:1611/api/1",
+    "resourcePath": "/group",
+    "apis": [
+        {
+            "path": "/group/{groupId}/hierarchy",
+            "description": "Get device groups hierarchy",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get device groups hierarchy", 
+                    "notes": "This operation returns the device groups hierarchy of a specific group.",                    
+                    "responseClass": "GroupValuesInfo: This class returns the list of all groups and devices that were found under the requested device group.",
+                    "nickname": "getDeviceGroupsHierarchy",
+                    "parameters": [
+                        {
+                            "name": "groupId",
+                            "description": "The unique Client Management database identifier of the group. This value is returned by the GET /group/subgroups , GET /group/{groupId}/hierarchy and GET /group/subgroup/{groupId}/subgroups operations.",
+                            "paramType": "path",                            
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query",
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "language",
+                            "description": "The language in which to display the results, which may be either English, American, Francais, Deutsch, Japanese, Espanol or Brasileiro. Select the desired value from the drop-down box.",
+                            "paramType": "query",
+                            "defaultValue": "English",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "English",
+                                    "Espanol",
+                                    "Deutsch",
+                                    "American",
+                                    "Japanese",
+                                    "Francais",
+                                    "Brasileiro"
+                                ]
+                            },
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCodes: 15"
+                        }
+                    ]
+                }
+            ]
+        },  
+        {
+            "path": "/group/subgroups",
+            "description": "List device groups at rool level.",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "List device groups at rool level.",
+                    "notes": "This operation returns the device groups located directly at the root level of the main device groups node.",
+                    "responseClass": "GroupDevices: This class returns the list of all device groups, either located directly under the main device groups node or under a specific group, as well as all member devices if specified.",
+                    "nickname": "groupSubgroups",
+                    "parameters": [
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the device groups or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the group (name), the date at which the group was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "hierarchy",
+                            "description": "Select from this drop-down box if the devices are listed in the return class as well, (true) for include the list, (false) for don't include.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query", 
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                         {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCode: 1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/group/subgroup/{groupId}/subgroups",
+            "description": "List subgroups of a specific device group.",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "List subgroups of a specific device group.",
+                    "notes": "This operation returns the device groups that are members of a specific other device group.",
+                    "responseClass": "GroupDevices: This class returns the list of all device groups, either located directly under the main device groups node or under a specific group, as well as all member devices if specified.",
+                    "nickname": "groupSubgroupChildgroup",
+                    "parameters": [
+                        {
+                            "name": "groupId",
+                            "description": "The unique Client Management database identifier of the group. This value is returned by the GET /group/subgroups , GET /group/{groupId}/hierarchy and GET /group/subgroup/{groupId}/subgroups operations.",
+                            "paramType": "path", 
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the device groups or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the group (name), the date at which the group was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "hierarchy",
+                            "description": "Select from this drop-down box if the devices are listed in the return class as well, (true) for include the list, (false) for don't include.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query", 
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                         {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCode: 1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/group/devices",
+            "description": "Get list of devices at root level.",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get list of devices at root level.",
+                    "notes": "This operation returns the devices located directly at the root level of the main device groups node.",
+                    "responseClass": "Devices: This class returns the list of all devices, either located directly under the main device groups node or under a specific group.",
+                    "nickname": "groupDevices",
+                    "parameters": [
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the devices or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the group (name), the date at which the group was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query", 
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                         {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCode: 1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/group/subgroup/{groupId}/devices",
+            "description": "List of devices of a device group.",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "List of devices of a device group.",
+                    "notes": "This operation returns the devices that are members of a specific device group.",
+                    "responseClass": "Devices: This class returns the list of all devices, either located directly under the main device groups node or under a specific group.",
+                    "nickname": "groupSubgroupDevices",
+                    "parameters": [
+                        {
+                            "name": "groupId",
+                            "description": "The unique Client Management database identifier of the group. This value is returned by the GET /group/subgroups , GET /group/{groupId}/hierarchy and GET /group/subgroup/{groupId}/subgroups operations.",
+                            "paramType": "path", 
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the devices or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the group (name), the date at which the group was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query", 
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                         {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCode: 1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/group/subgroup/{groupId}/device/{deviceId}",
+            "description": "Add a device in a device group.",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Add a device in a device group.",
+                    "notes": "This operation registers a device in a specific device group.",
+                    "responseClass": "CreateRelationResult",
+                    "nickname": "createDeviceGroupDeviceRelationship",
+                    "parameters": [
+                        {
+                            "name": "groupId",
+                            "description": "The unique Client Management database identifier of the group. This value is returned by the GET /group/subgroups , GET /group/{groupId}/hierarchy and GET /group/subgroup/{groupId}/subgroups operations.",
+                            "paramType": "path", 
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "deviceId",
+                            "description": "The unique Client Management database ID of the device. This value is returned by either the GET /devices or the GET /device operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCode: 1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/group/subgroup/{groupId}/device/{deviceId}",
+            "description": "Remove a device from a device group.",
+            "operations": [
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Remove a device from a device group.",
+                    "notes": "This operation unregisters a device from a specific device group.",
+                    "responseClass": "DestroyRelationResult",
+                    "nickname": "destroyDeviceGroupDeviceRelationship",
+                    "parameters": [
+                        {
+                            "name": "groupId",
+                            "description": "The unique Client Management database identifier of the group. This value is returned by the GET /group/subgroups , GET /group/{groupId}/hierarchy and GET /group/subgroup/{groupId}/subgroups operations.",
+                            "paramType": "path", 
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "deviceId",
+                            "description": "The unique Client Management database ID of the device. This value is returned by either the GET /devices or the GET /device operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCode: 1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/user/subgroups",
+            "description": "List user groups at root level.",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "List user groups at root level.",
+                    "notes": "This operation returns the user groups located directly at the root level of the main user groups node.",
+                    "responseClass": "GroupUsers: This class returns the list of all user groups, either located directly under the main user groups node or under a specific group, as well as all member users if specified.",
+                    "nickname": "userGroup",
+                    "parameters": [
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the user groups or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the group (name), the date at which the group was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "hierarchy",
+                            "description": "Select from this drop-down box if the users are listed in the return class as well, (true) for include the list, (false) for don't include.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query", 
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                         {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCode: 1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/user/group/{groupId}/subgroups",
+            "description": "List subgroups of a specific user group.",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "List subgroups of a specific user group.",
+                    "notes": "This operation returns the user groups that are members of a specific other user group.",
+                    "responseClass": "GroupUsers: This class returns the list of all user groups, either located directly under the main user groups node or under a specific group, as well as all member users if specified.",
+                    "nickname": "userGroupSubgroups",
+                    "parameters": [
+                        {
+                            "name": "groupId",
+                            "description": "The unique Client Management database identifier of the user group. User group IDs are returned by the GET /user/subgroups or GET /user/group/{groupId}/subgroups operation.",
+                            "paramType": "path", 
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the user groups or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the group (name), the date at which the group was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "hierarchy",
+                            "description": "Select from this drop-down box if the users are listed in the return class as well, (true) for include the list, (false) for don't include.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query", 
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                         {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCode: 1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/user/users",
+            "description": "List users at root level.",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "List users at root level.",
+                    "notes": "This operation returns the users located directly at the root level of the main user groups node.",
+                    "responseClass": "Users: This class returns the list of all users, either located directly under the main user groups node or under a specific group.",
+                    "nickname": "groupUsers",
+                    "parameters": [
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the users or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the user (name), the date at which the user was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "domain",
+                                    "login",
+                                    "isEnabled",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query", 
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                         {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCode: 1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/user/group/{groupId}/users",
+            "description": "List users of a user group.",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "List users of a specific user group.",
+                    "notes": "This operation returns the users that are members of a specific user group.",
+                    "responseClass": "Users: This class returns the list of all users, either located directly under the main user groups node or under a specific group.",
+                    "nickname": "groupSubgroupUsers",
+                    "parameters": [
+                        {
+                            "name": "groupId",
+                            "description": "The unique Client Management database identifier of the user group. User group IDs are returned by the GET /user/subgroups or GET /user/group/{groupId}/subgroups operation.",
+                            "paramType": "path", 
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the users or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the user (name), the date at which the user was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "domain",
+                                    "login",
+                                    "isEnabled",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query", 
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                         {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCode: 1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/package/subfolders",
+            "description": "List package folders at root level.",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "List package folders at root level.",
+                    "notes": "This operation returns the package folders located directly at the root level of the main packages node",
+                    "responseClass": "GroupPackages: This class returns the list of all package folders, either located directly under the main packagess node or under a specific folder, as well as all member packages if specified.",
+                    "nickname": "packagerootfolders",
+                    "parameters": [
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the package folders or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the folder (name), the date at which the folder was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "hierarchy",
+                            "description": "Select from this drop-down box if the packages are listed in the return class as well, (true) for include the list, (false) for don't include.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query", 
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                         {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCode: 1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/package/folder/{folderId}/subfolders",
+            "description": "List package subfolders of a package folder.",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "List package subfolders of a package folder.",
+                    "notes": "This operation returns the package folders that are members of a specific package folder.",
+                    "responseClass": "GroupPackages: This class returns the list of all package folders, either located directly under the main packagess node or under a specific folder, as well as all member packages if specified.",
+                    "nickname": "PackageSubfolders",
+                    "parameters": [
+                        {
+                            "name": "folderId",
+                            "description": "The unique Client Management database identifier of the package folder. This value is returned by either the GET /package/subfolders or a GET /package/folder/{folderId}/subfolders operation.",
+                            "paramType": "path", 
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the package folders or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the folder (name), the date at which the folder was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "hierarchy",
+                            "description": "Select from this drop-down box if the packages are listed in the return class as well, (true) for include the list, (false) for don't include.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query", 
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                         {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCode: 1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/package/packages",
+            "description": "List packages at root level.",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "List packages at root level.",
+                    "notes": "This operation returns the packages located directly at the root level of the main packages node.",
+                    "responseClass": "Packages: This class returns the list of all packages, either located directly under the main packages node or under a specific folder.",
+                    "nickname": "groupPackages",
+                    "parameters": [
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the packages or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the package (name), the date at which the package was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "type",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query", 
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                         {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCode: 1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/package/folder/{folderId}/packages",
+            "description": "List packages of a package sub folder.",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "List packages of a package sub folder.",
+                    "notes": "This operation returns the packages that are members of a specific package folder.",
+                    "responseClass": "Packages: This class returns the list of all packages, either located directly under the main packages node or under a specific folder.",
+                    "nickname": "groupSubfolderPackages",
+                    "parameters": [
+                        {
+                            "name": "folderId",
+                            "description": "The unique Client Management database identifier of the package folder. This value is returned by either the GET /package/subfolders or a GET /package/folder/{folderId}/subfolders operation.",
+                            "paramType": "path", 
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the packages or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the package (name), the date at which the package was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "type",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query", 
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                         {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCode: 1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/group/{groupIds}/wakeup",
+            "description": "Wakeup a group of devices",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Wakeup a group of devices",
+                    "notes": "This operation wakes a specific group of devices up for further operation execution.",
+                    "responseClass": "GroupOperationResult: This class returns the operation result on the members of one or more specific device groups.",
+                    "nickname": "wakeupGroup",
+                    "parameters": [
+                        {
+                            "name": "groupIds",
+                            "description": "The unique Client Management identifier of the group or groups to wake up. If more than one group is listed, the groups must be separated by a colon (,).  These are returned by the GET /group/subgroups , GET /group/{groupId}/hierarchy and GET /group/subgroup/{groupId}/subgroups operations.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "retrycount",
+                            "description": "Number of retries, to wake up the member of the group if the preceding attempt failed.",
+                            "paramType": "query", 
+                            "defaultValue": 1,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                         {
+                            "name": "retryinterval",
+                            "description": "Interval in seconds between two retries.",
+                            "paramType": "query",
+                            "defaultValue": 1000,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 404,
+                            "reason": "ErrorCode: 1"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {        
+        "GroupValues": {
+            "id": "GroupValues",
+            "properties": {                
+                "ObjectId": {
+                    "type": "int",
+                    "description": "The unique Client Management database identifier of the object type."
+                },
+                "ObjectName": {
+                    "type": "string",
+                    "description": "The name of the object type."
+                },                
+                "ObjectTypeName": {
+                    "type": "string",
+                    "description": "The internal Client Management database name under which this object type is known, for example _DB_OBJECTTYPE_DEVICEGROUP_ for a device group."
+                },
+                "ObjectSmallIcon": {
+                    "type": "string",
+                    "description": "The name and relative path of the icon representing the current state of the found object."
+                }
+            }
+        },        
+        "GroupValuesInfo": {
+            "id": "GroupValuesInfo",
+            "properties": {                
+                "Values": {
+                    "items": {
+                        "$ref": "GroupValues"
+                    },
+                    "type": "object" 
+                },
+                "ErrorCode": {
+                    "type": "int",
+                    "description" : "The error code returned by the operation if the operation failed or 0 for a successful operation."
+                }
+            }
+        },
+        "GroupOperationResult": {
+            "id": "GroupOperationResult",
+            "properties": {
+                "ErrorCode": {
+                    "type": "int",
+                    "description" : "The error code returned by the operation if the operation failed or 0 for a successful operation."
+                }
+            }
+        },
+        "GroupDevices": {
+            "id": "GroupDevices",
+            "properties": { 
+                "devicesgroups": {
+                    "items": {
+                        "$ref": "DeviceGroups"
+                    },
+                    "type": "object"
+                },
+                "devices": {
+                    "items": {
+                        "$ref": "Devices"
+                    },
+                    "type": "object"
+                },
+                "ErrorCode": {
+                    "type": "int",
+                    "description" : "The error code returned by the operation if the operation failed or 0 for a successful operation."
+                }
+            }
+        },
+        "Devices": {
+            "id": "Devices",
+            "properties": {
+                "id": {
+                    "type": "int",
+                    "description":"The unique Client Management database ID of the device."
+                },
+                "name": {
+                    "type": "string",
+                    "description":"The name of the device as known in Client Management database."
+                },
+                "notes": {
+                    "type": "string",
+                    "description":"Any additional information that may be available for the device."
+                },
+                "createDate": {
+                    "type": "int",
+                    "description":"The date and time at which the device was created in the Client Management database."
+                },
+                "updateDate": {
+                    "type": "int",
+                    "description":"The date and time at which the device was last modified in the Client Management database."
+                }
+            }
+        },
+        "DeviceGroups": {
+            "id": "DeviceGroupValues",
+            "properties": {
+                "id": {
+                    "type": "int",
+                    "description":"The unique Client Management database identifier of the group."
+                },
+                "name": {
+                    "type": "string",
+                    "description":"The name of the device group as known in Client Management database."
+                },
+                "notes": {
+                    "type": "string",
+                    "description":"Any additional information that may be available for the device group."
+                },
+                "createDate": {
+                    "type": "int",
+                    "description":"The date and time at which the device group was created in the Client Management database."
+                },
+                "updateDate": {
+                    "type": "int",
+                    "description":"The date and time at which the device group was last modified in the Client Management database."
+                }
+            }
+        },
+        "GroupUsers": {
+            "id": "GroupUsers",
+            "properties": {   
+                "usergroups": {
+                    "items": {
+                        "$ref": "UserGroups"
+                    },
+                    "type": "object"
+                },
+                "users": {
+                    "items": {
+                        "$ref": "Users"
+                    },
+                    "type": "object"
+                },
+                "ErrorCode": {
+                    "type": "int",
+                    "description" : "The error code returned by the operation if the operation failed or 0 for a successful operation."
+                }
+            }
+        },
+        "Users": {
+            "id": "Users",
+            "properties": {
+                "id": {
+                    "type": "int",
+                    "description": "The unique Client Management database ID of user."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the user as known in Client Management database."
+                },
+                "domain": {
+                    "type": "string",
+                    "description": "The domain name to which this user belongs to."
+                },
+                "login": {
+                    "type": "string",
+                    "description": "The login name of the user with which he may log on to any client in the network."
+                },
+                "isEnabled": {
+                    "type": "boolean",
+                    "description": "Indicates if the user and his login are currently enabled, that is, if when using this login on a client he may access the specified user options."
+                },
+                "notes": {
+                    "type": "string",
+                    "description":"Any additional information that may be available for the user."
+                },
+                "createDate": {
+                    "type": "int",
+                    "description":"The date and time at which the user was created in the Client Management database."
+                },
+                "updateDate": {
+                    "type": "int",
+                    "description":"The date and time at which the user was last modified in the Client Management database."
+                }
+            }
+        },
+        "UserGroups": {
+            "id": "UserGroups",
+            "properties": {
+                "id": {
+                    "type": "int",
+                    "description": "The unique Client Management database ID of user group."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the user group as known in Client Management database."
+                },
+                "notes": {
+                    "type": "string",
+                    "description":"Any additional information that may be available for the user group."
+                },
+                "createDate": {
+                    "type": "int",
+                    "description":"The date and time at which the user group was created in the Client Management database."
+                },
+                "updateDate": {
+                    "type": "int",
+                    "description":"The date and time at which the user group was last modified in the Client Management database."
+                }
+            }
+        },
+        "GroupPackages": {
+            "id": "GroupPackages",
+            "properties": {     
+                "folders": {
+                    "items": {
+                        "$ref": "PackagesFolders"
+                    },
+                    "type": "object"
+                },
+                "packages": {
+                    "items": {
+                        "$ref": "Packages"
+                    },
+                    "type": "object"
+                },
+                "ErrorCode": {
+                    "type": "int",
+                    "description" : "The error code returned by the operation if the operation failed or 0 for a successful operation."
+                }
+            }
+        },
+        "PackagesFolders": {
+            "id": "Folder",
+            "properties": {
+                "id": {
+                    "type": "int",
+                    "description" : "The unique Client Management database identifier of the package folder."
+                },
+                "name": {
+                    "type": "string",
+                    "description" : "The name of the package folder as known in Client Management database."
+                },
+                "notes": {
+                    "type": "string",
+                    "description":"Any additional information that may be available for the package folder."
+                },
+                "createDate": {
+                    "type": "int",
+                    "description":"The date and time at which the package folder was created in the Client Management database."
+                },
+                "updateDate": {
+                    "type": "int",
+                    "description":"The date and time at which the package folder was last modified in the Client Management database."
+                }
+            }
+        },
+        "Packages": {
+            "id": "Packages",
+            "properties": {
+                "id": {
+                    "type": "int",
+                    "description" : "The unique Client Management database identifier of the package."
+                },
+                "name": {
+                    "type": "string",
+                    "description" : "The name of the package as known in Client Management database."
+                },
+                "type": {
+                    "type": "string",
+                    "description" : "The type of the package. CUSTOM indicates that the package may either be a manually created custom package or a patch package."
+                },
+                "createDate": {
+                    "type": "int",
+                    "description":"The date and time at which the package was created in the Client Management database."
+                },
+                "updateDate": {
+                    "type": "int",
+                    "description":"The date and time at which the package was last modified in the Client Management database."
+                }
+            }
+        },
+        "CreateRelationResult": {
+            "id": "CreateRelationResult",
+            "properties": {                
+                "ErrorCode": {
+                    "type": "int",
+					"description": "The error code of executed operation, 0 when successful."
+                }
+            }
+        },
+        "DestroyRelationResult": {
+            "id": "DestroyRelationResult",
+            "properties": {                
+                "ErrorCode": {
+                    "type": "int",
+					"description": "The error code of executed operation, 0 when successful."
+                }
+            }
+        }
+    }
+}

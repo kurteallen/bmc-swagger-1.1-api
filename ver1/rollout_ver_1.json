@@ -1,0 +1,1112 @@
+{
+    "apiVersion": "1.0",
+    "swaggerVersion": "1.1",
+    "basePath": "https://localhost:1611/api/1",
+    "resourcePath": "/rollout/configuration",
+    "apis": [
+        {
+            "path": "/rollout/subfolders",
+            "description": "Get the list of folders at rollout root level",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get the list of folders at rollout root level",                 
+                    "notes": "This operation returns the list of rollout folders located directly below the top node. When hierarchy parameter is set to true, this also lists rollout configurations at root level.",
+                    "responseClass": "RolloutFolderArray: This class provides the number of children of a specific location and information on all these children.",
+                    "nickname": "getRolloutRootFolders",
+                    "parameters": [
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the subfolders or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the folder (name), the date at which the folder was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "hierarchy",
+                            "description": "Select from this drop-down box if the rollout configuration contained in the respective folder are listed in the return class, true for include in the list, false for do not include.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query",
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/rollout/folder/{folderId}/subfolders",
+            "description": "Get the list of subfolders of a rollout folder",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get the list of subfolders of a rollout  folder",     
+                    "notes": " This operation returns the list of subfolders of a specific a rollout  folder.",     
+                    "responseClass": "RolloutFolderArray: This class provides the number of children of a specific location and information on all these children.",
+                    "nickname": "getRollloutSubfoldersFromFolder",
+                    "parameters": [
+                        {
+                            "name":"folderId",
+                            "description": "The unique Client Management database identifier of the rollout subfolder. This value is returned by either the /rollout/subfolders or another /rollout/folder/{folderId}/subfolders operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the subfolders or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the folder (name), the date at which the folder was created (createDate) or the date at which it was last modified (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "hierarchy",
+                            "description": "Select from this drop-down box if the operational rules contained in the respective folder are listed in the return class, true for include in the list, false for do not include.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query",
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/rollout/configurations",
+            "description": "Get list of rollout configurations at root folder.",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get list of rollout configurations at root folder.",                 
+                    "notes" :"This operation returns the list of rollout configurations directly located under the Rollouts top node.",
+                    "responseClass": "RolloutConfigurationArray: This class returns the number of rollout configurations found under the Rollouts top node and one rollout configuration information array per configuration.",
+                    "nickname": "getRootRolloutConfigurations",
+                    "parameters": [
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the rollout configuration or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the rollout configuration (name), the type of the operational rules (type), the creation time (createDate) or the last modification time (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "type",
+                                    "os",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query",
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },  
+        {
+            "path": "/rollout/folder/{folderId}/configurations",
+            "description": "Get the list of rollout configurations of the specified folder",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get the list of rollout configurations of the specified folder", 
+                    "notes": "This operation returns the list of rollout configurations of a specific folder.",                    
+                    "responseClass": "RolloutConfigurationArray: This class returns the number of rollout configurations found in the specific location and one rollout configurations information array per configuration.",
+                    "nickname": "getOperationalRulesRulesFromFolder",
+                    "parameters": [
+                        {
+                            "name":"folderId",
+                            "description": "The unique Client Management database identifier of the rollout configurations folder. This value is returned by either the /rollout/subfolders or another /rollout/folder/{folderId}/subfolders operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "brief",
+                            "description": "Select from this drop-down box if the return class only returns the IDs of the subfolders or also additional available information, true for IDs only, false for IDs plus additional information such as name, creation date, and so on.",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "false",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "sort",
+                            "description": "Select from this drop-down box the parameter according to which the returned values are to be sorted, this may either be the name of the rollout configuration (name), the type of the operational rules (type), the creation time (createDate) or the last modification time (updateDate).",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "name",
+                                    "type",
+                                    "os",
+                                    "createDate",
+                                    "updateDate"                                    
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "name",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "asc",
+                            "description": "Select from this drop-down box in which order the sorting is applied, either ascending (true) or descending (false).",
+                            "paramType": "query",
+                            "required": false,
+                            "defaultValue": "true",
+                            "allowMultiple": false,
+                            "dataType": "boolean"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. To display all entries, enter 0 in this field as well as in the count field.",
+                            "paramType": "query",
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "count",
+                            "description": "The number of entries to display at a time. To display all entries, enter 0 in this field as well as in the offset field.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },      
+        {
+            "path": "/rollout/configuration/{configurationId}",
+            "description": "Get attributes of a rollout configuration",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get attributes of a rollout configuration",     
+                    "notes": "This operation returns the attributes of a rollout configuration.",     
+                    "responseClass": "RolloutConfigurationAttrs: This class contains tyhe attributes of a rollout configuration.",
+                    "nickname": "getRolloutConfigurationAttrs",
+                    "parameters": [
+                        {
+                            "name":"configurationId",
+                            "description": "The unique Client Management database identifier of the rollout configuration. This value is returned by either the GET /rollout/configurations or a GET /rollout/folder/{folderId}/configurations operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/rollout/server/{deviceId}/assignments",
+            "description": "Get list of all rollout configurations assigned to a rollout server",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get list of all rollout configurations assigned to a rollout server",
+                    "notes": "This operation returns the list of all rollout configurations assigned to a specific rollout server.",                    
+                    "responseClass": "RolloutServerConfigAssignmentAttrsArray: This class provides a list of arrays containing information on the assignment between a rollout server and a rollout configuration.",
+                    "nickname": "getRolloutServerConfigAssignments",
+                    "parameters": [                     
+                        {
+                            "name":"deviceId",
+                            "description": "The unique Client Management database identifier of the rollout server.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/rollout/server/assignment/{assignmentId}",
+            "description": "Get the details of a rollout configuration assigned to a rollout server for a specific assignment Id",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get the details of a rollout configuration assigned to a rollout server for a specific assignment Id",
+                    "notes": "This operation returns the details of a rollout configuration assigned to a rollout server for a specific assignment Id.",                    
+                    "responseClass": "RolloutServerConfigAssignmentAttrs: This class provides a list containing information on the assignment between a rollout server and a rollout configuration.",
+                    "nickname": "getRolloutServerConfigAssignment",
+                    "parameters": [                     
+                        {
+                            "name":"assignmentId",
+                            "description": "The assignment identifier between the rollout server and the rollout configuration. This value is returned by the GET /rollout/server/{deviceId}/assignments.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },  
+        {
+            "path": "/rollout/subfolder",
+            "description": "Create a rollout folder under root",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Create a rollout folder under root",  
+                    "notes":"This operation creates a new rollout folder directly below the Rollouts top node.",                    
+                    "responseClass": "PutRolloutFolderResult: This class returns the result of a rollout folder creation operation.",
+                    "nickname": "putRolloutRootFolder",
+                    "parameters": [
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "FolderAttrs"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/rollout/folder/{folderId}/subfolder",
+            "description": "Create a rollout subfolder in a specific folder",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Create a rollout subfolder in a specific folder", 
+                    "notes":"This operation creates a new rollout subfolder in a specific rollout folder.",
+                    "responseClass": "PutRolloutFolderResult: This class returns the result of a rollout folder creation operation.",
+                    "nickname": "putRolloutFolder",
+                    "parameters": [
+                        {
+                            "name":"folderId",
+                            "description": "The unique Client Management database identifier of the rollolut subfolder. This value is returned by either the /rollout/subfolders or another /rollout/folder/{folderId}/subfolders operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "FolderAttrs"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/rollout/folder/{folderId}",
+            "description": "Update rollout folder data",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Update rollout folder data",
+                    "notes":"This operation updates the data of a specific rollout folder.",
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "putRolloutFolderAttrs",
+                    "parameters": [
+                        {
+                            "name":"folderId",
+                            "description": "The unique Client Management database identifier of the rollout folder. This value is returned by either the /rollout/subfolders or another /rollout/folder/{folderId}/subfolders operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "FolderAttrs"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/rollout/configuration",
+            "description": "Create a rollout configuration under root",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Create a rollout configuration under root",   
+                    "notes": "This operation creates a new rollout configuration directly below the Rollouts top node.", 
+                    "responseClass": "PutRolloutConfigurationResult: This class returns the result of an rollout configuration creation operation.",             
+                    "nickname": "putRootRolloutConfiguration",
+                    "parameters": [
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/rollout/folder/{folderId}/configuration",
+            "description": "Create a rollout configuration under a folder",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Create a rollout configuration under a folder",   
+                    "notes": "This operation creates a new rollout configuration below a folder.", 
+                    "responseClass": "PutRolloutConfigurationResult: This class returns the result of an rollout configuration creation operation.",             
+                    "nickname": "putRolloutConfiguration",
+                    "parameters": [
+                        {
+                            "name":"folderId",
+                            "description": "The unique Client Management database identifier of the rollout folder. This value is returned by either the /rollout/subfolders or another /rollout/folder/{folderId}/subfolders operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/rollout/configuration/{configurationId}",
+            "description": "Update rollout configuration attributes",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Update rollout configuration attributes",
+                    "notes":"This operation updates the attributes of a specific rollout configuration.",
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "putRolloutConfigurationAttrs",
+                    "parameters": [
+                        {
+                            "name":"configurationId",
+                            "description": "The unique Client Management database identifier of the rollout configuration. This value is returned by either the GET /rollout/configurations or a GET /rollout/folder/{folderId}/rollout configurations.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "RolloutConfigurationAttrs"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/rollout/server/{deviceId}/configuration/{configurationId}",
+            "description": "Assign a Rollout configuration to a Rollout server",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Assign a Rollout configuration to a Rollout server", 
+                    "notes":"This operation assigns Rollout configuration to a specific Rollout server.",        
+                    "responseClass": "AssignmentDetails: This class provides information on the assignment between a rollout server and the rollout configuration.",
+                    "nickname": "PutRolloutServerAssignConfig",
+                    "parameters": [
+                        {
+                            "name":"deviceId",
+                            "description": "The unique Client Management database identifier of the rollout server.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name":"configurationId",
+                            "description": "The unique Client Management database identifier of the rollout configuration. This value is returned by either the GET /rollout/configurations or a GET /rollout/folder/{folderId}/rollout configurations.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/rollout/server/assignment/{assignmentId}/status",
+            "description": "Update the status of an assignment between a rollout server and a configuration",
+            "operations": [
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Update the status of an assignment between a rollout server and a configuration",
+                    "notes":"This operation updates the status of an assignment between a specific rollout server and a specific configuration.",
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "putRolloutServerAssignment",
+                    "parameters": [
+                        {
+                            "name":"assignmentId",
+                            "description": "The unique Client Management database identifier of the assignment between the specific rollout server and a rollout configuration. This value is returned by the GET /rollout/server/{deviceId}/assignments.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "StatusDetails"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/rollout/folder/{folderId}",
+            "description": "Delete a rollout folder",
+            "operations": [
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete a rollout folder",
+                    "notes":"This operation deletes a specific rollout folder.",    
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "deleteRolloutFolder",
+                    "parameters": [
+                        {
+                            "name":"folderId",
+                            "description": "The unique Client Management database identifier of the rollout subfolder. This value is returned by either the /rollout/subfolders or another /rollout/folder/{folderId}/subfolders operation.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/rollout/server/assignment/{assignmentId}",
+            "description": "Delete an assignment between a rollout server and a rollout configuration",
+            "operations": [
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete an assignment between a rollout server and a rollout configuration",
+                    "notes":"This operation deletes a specific assignment between a rollout server and a rollout configuration.",    
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "deleteRolloutServerConfigAssignment",
+                    "parameters": [
+                        {
+                            "name":"assignmentId",
+                            "description": "The unique Client Management database identifier of the assignment between the specific rollout server and a rollout configuration. This value is returned by the GET /rollout/server/{deviceId}/assignments.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                          "name":"activation",
+                            "description": "Select from this drop-down box if the unassignment is to be effected automatically or manually.",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "automatic",
+                                    "manual"                                   
+                                ]
+                            },
+                            "paramType": "query",
+                            "required": true,
+                            "defaultValue": "automatic",
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/rollout/configuration/{configurationId}",
+            "description": "Delete a rollout configuration",
+            "operations": [
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete a rollout configuration",  
+                    "notes":"This operation deletes a specific rollout configuration.",    
+                    "responseClass": "OperationResult: This class returns the result (error code) of the operation.",
+                    "nickname": "deleteRolloutConfiguration",
+                    "parameters": [
+                         {
+                             "name":"configurationId",
+                             "description": "The unique Client Management database identifier of the rollout configuration. This value is returned by either the GET /rollout/configurations or a GET /rollout/folder/{folderId}/configurations operation.",
+                             "paramType": "path",
+                             "required": true,
+                             "allowMultiple": false,
+                             "dataType": "int"
+                         }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "ErrorCode: 13 - Bad parameter"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {        
+        "PutRolloutFolderResult": {
+            "id": "PutRolloutFolderResult",
+            "properties": {               
+                "folder": {
+                    "type": "FolderValuesResult"
+                }
+            }
+        },
+        "FolderValuesResult": {
+            "id": "FolderValuesResult",
+            "properties": {               
+                "id": {
+                    "type": "int",
+                    "description": "Folder value id."
+                }
+            }
+        },
+        "RolloutFolderArray": {
+            "id": "RolloutFolderArray",
+            "properties": { 
+                "total": {
+                    "type": "int"
+                },    
+                "folders": {
+                    "items": {
+                        "$ref": "RolloutFolderValues"
+                    },
+                    "type": "Array"
+                },
+                "ErrorCode": {
+                    "type": "int"
+                }
+            }
+        },
+        "RolloutFolderValues": {
+            "id": "RolloutFolderValues",
+            "properties": {                
+                    "folder": {
+                        "items":{
+                            "$ref": "RolloutFolderValuesArray"
+                        },
+                        "type": "Array"
+                    }
+            }
+        },
+        "RolloutFolderValuesArray": {
+            "id": "RolloutFolderValuesArray",
+            "properties": {                
+                "id": {
+                    "type": "int",
+                    "description": "Rollout folder ID."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Rollout folder name."
+                },
+                "notes": {
+                    "type": "string",
+                    "description": "Additional information for rollout folder."
+                },
+                "createDate": {
+                    "type": "int",
+                    "description": "Creation date for rollout folder."
+                },
+                "updateDate": {
+                    "type": "int",
+                    "description": "Update date for rollout folder."
+                }
+            }
+        },
+        "PutRolloutConfigurationResult": {
+            "id": "PutRolloutConfigurationResult",
+            "properties": {               
+                "folder": {
+                    "type": "RolloutConfigurationResult"
+                }
+            }
+        },
+        "OperationResult": {
+            "id": "OperationResult",
+            "properties": {                
+                "errorCode": {
+                    "type": "int"
+                }
+            }
+        },
+        "RolloutConfigurationResult": {
+            "id": "RolloutConfigurationResult",
+            "properties": {               
+                "id": {
+                    "type": "int",
+                    "description": "Rollout Configuration id."
+                }
+            }
+        },
+        "RolloutConfigurationAttrs": {            
+            "id": "RolloutConfigurationAttrs",
+            "description": "This class provides the information required to update arollout configuration.",
+            "properties": {                
+                "name": {
+                    "type": "string",
+                    "description": "The name of the rollout configuration."
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Defines the type of the rollout that is to be executed, a new agent installation, a reinstallation or repair or removig the agent.",
+                    "allowableValues":{
+                     "valueType":"LIST",
+                     "values":[
+                        "_DB_ROLLOUTTYPE_INSTALL_",
+                        "_DB_ROLLOUTTYPE_REINSTALL_",
+                        "_DB_ROLLOUTTYPE_INSTALL_REPAIR_UPGRADE_",
+                        "_DB_ROLLOUTTYPE_UNINSTALL_"
+                      ]
+                    }
+                },
+                "os": {
+                    "type": "string",
+                    "description": "Defines the operating system type for the rollout targets.",
+                    "allowableValues":{
+                      "valueType":"LIST",
+                      "values":[
+                        "_OS_ROLLOUT_ALLWINDOWS_",
+                        "_OS_ROLLOUT_WINX32_",
+                        "_OS_ROLLOUT_WINX64_",
+                        "_OS_ROLLOUT_LINUX_",
+                        "_OS_ROLLOUT_LINUX64_",
+                        "_OS_ROLLOUT_MACOSX_"
+                      ]
+                    }
+                },
+                "installDirectory": {
+                    "type": "string",
+                    "defaultValue": "${ProgramFiles}\\BMC Software\\Client Management\\Client",
+                    "description": "The directory where to install the agent."
+                },
+                "silentInstaller": {
+                    "type": "boolean",
+                    "defaultValue": "false",
+                    "description": "Is the installation in silent mode. By default the value is false."
+                },
+                "installerName": {
+                    "type": "string",
+                    "description": "This text field contains the name of the installer file. By default name is BCM_Agent.exe."
+                },
+                "serviceName": {
+                    "type": "string",
+                    "description": "This text field contains the name of the agent's service. By default name is BMC Client Management Agent."
+                },
+                "notes": {
+                    "type": "string",
+                    "description": "This free text field may contain any additional information concerning the selected object."
+                }
+            }
+        },
+        "AssignmentId": {
+            "id": "AssignmentId",
+            "properties": {  
+                "id": {
+                    "type": "int"
+                }
+            }
+        },
+        "AssignmentDetails": {
+            "id": "AssignmentDetails",
+            "properties": {  
+                "assignment": {
+                    "type": "object",
+                    "items": {
+                        "$ref": "AssignmentId"
+                    }
+                }
+            }
+        },
+        "RolloutServerConfigAssignmentAttrs": {
+            "id": "RolloutServerConfigAssignmentAttrs",
+            "properties": {
+                "id": {
+                    "type": "int",
+                    "description":"Assignment id for a rollout configuration to a rollout server."
+                },
+                "rolloutId": {
+                    "type": "int",
+                    "description":"Rollout configuration id."
+                },  
+                "rolloutName": {
+                    "type": "string",
+                    "description":"Name of the rollout configuration."
+                },   
+                "status": {
+                    "type": "string",
+                    "description":"Status of a rollout configuration assigned to rollout server."
+                },
+                "scheduleId": {
+                    "type": "int",
+                    "description": "The unique Client Management database identifier of the rollout configuration's schedule."
+                },
+                "lastStatusUpdate": {
+                    "type": "string",
+                    "description":"Date and time when status between rollout configuration and rollout server changed."
+                },
+                "createTime": {
+                    "type": "string",
+                    "description":"Date and time when a rollout configuration was assigned to rollout server."
+                }
+            }
+        },
+        "RolloutServerConfigAssignmentAttrsArray": {
+            "id": "RolloutServerConfigAssignmentAttrsArray",
+            "properties": {  
+                "assignments": {
+                    "type": "Array",
+                    "items": {
+                        "$ref": "RolloutServerConfigAssignmentAttrs"
+                    }
+                }
+            }
+        },
+        "FolderAttrs": {            
+            "id": "FolderAttrs",
+            "description": "This class provides the information required to create or update a rollout folder.",
+            "properties": {                
+                "name": {
+                    "type": "string",
+                    "description": "The name of the object under which it is known in Client Management. This name may be any combination of characters."
+                },
+                "notes": {
+                    "type": "string",
+                    "description": "This free text field may contain any additional information concerning the selected object."
+                }
+            }
+        },
+        "StatusDetails": {            
+            "id": "StatusDetails",
+            "description": "This class provides the information required to update arollout configuration.",
+            "properties": {                
+                "status": {
+                    "description": "Status of the assignment between a specific rollout server and a specific configuration.",
+                    "allowableValues": {
+                        "valueType": "LIST",
+                        "values": [
+                            "_STATUS_ASSIGNPAUSED_",
+                            "_STATUS_UNASSIGNEDPAUSED_",
+                            "_STATUS_ASSIGNWAITING_",
+                            "_STATUS_UPDATEWAITING_",
+                            "_STATUS_REASSIGNWAITING_",
+                            "_STATUS_UNASSIGNWAITING_"
+                        ]
+                    },
+                    "allowMultiple": false,
+                    "type": "string"
+                }
+            }
+        },
+        "RolloutConfigurationArray": {
+            "id": "RolloutConfigurationArray",
+            "properties": { 
+                "total": {
+                    "type": "int"
+                },    
+                "attachments": {
+                    "items": {
+                        "$ref": "RolloutConfigurationValues"
+                    },
+                    "type": "Array"
+                },
+                "ErrorCode": {
+                    "type": "int"
+                }
+            }
+        },
+        "RolloutConfigurationValues": {
+            "id": "RolloutConfigurationValues",
+            "properties": {                
+                    "attachments": {
+                        "items":{
+                            "$ref": "RolloutConfigurationValuesArray"
+                        },
+                        "type": "Array"
+                    }
+            }
+        },
+        "RolloutConfigurationValuesArray": {
+            "id": "RolloutConfigurationValuesArray",
+            "properties": {                
+                "name": {
+                    "type": "string",
+                    "description": "Name of the rollout configuration."
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Defines the type of the rollout that is to be executed, a new agent installation, a reinstallation or repair or removig the agent "
+                },
+                "os": {
+                    "type": "string",
+                    "description": "Defines the operating system type for the rollout targets"
+                },
+                "installDirectory": {
+                    "type": "string",
+                    "description": "The directory where to install the agent."
+                },
+                "silentInstaller": {
+                    "type": "string",
+                    "description": "Is the installation in silent mode."
+                },
+                "installerName": {
+                    "type": "string",
+                    "description": "This text field contains the name of the installer file."
+                },
+                "serviceName": {
+                    "type": "string",
+                    "description": "This text field contains the name of the agent's service."
+                },
+                "notes": {
+                    "type": "string",
+                    "description": "This free text field may contain any additional information concerning the selected object."
+                }
+            }
+        }
+    }
+}

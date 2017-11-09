@@ -1,0 +1,127 @@
+{
+
+    "apiVersion": "1.0",
+    "swaggerVersion": "1.1",
+    "basePath": "https://localhost:1611/api/1",
+    "resourcePath": "/enum",
+    "apis": [                
+        {
+            "path": "/enum/groups",
+            "description": "Get list of enumeration groups",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get list of enumeration groups",
+                    "notes": " This operation list enumeration groups containing the query value provided.",     
+                    "responseClass": "EnumGroups: This class returns the list of enumeration groups containing a specific expression.",
+                    "nickname": "enumGroups",
+                    "parameters": [
+                        {
+                            "name": "query",
+                            "description": "The enumeration group to be searched. This search is based on contains operator.",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "Ok"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/enum/group",
+            "description": "Get list of enumeration of a group",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get list of enumeration of a group",
+                    "notes": " This operation list enumerations for given enumeration group.",
+                    "responseClass": "Enumerations: This class returns the list of enumerations of an enumeration group.",
+                    "nickname": "enumerations",
+                    "parameters": [
+                        {
+                            "name": "name",
+                            "description": "The name of the enumeration group for which the enumerations are to be listed. The search is based on equality operator. This value is returned by the GET /enum/groups operation.",
+                            "paramType": "query",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 200,
+                            "reason": "Ok"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {        
+        "EnumGroups": {
+            "id": "EnumGroups",
+            "properties": {                
+                "Values": {
+                    "items": {
+                        "$ref": "EnumGroupDetails"
+                    },
+                    "type": "LIST"
+                },
+                "ErrorCode": {
+                    "type": "int"
+                }
+            }
+        },
+        "EnumGroupDetails": {
+            "id": "Groups",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description":"EThe name of the enumeration group."
+                },
+                "type": {
+                    "type": "string",
+                    "description":"The data type of the enumeration group."
+                },
+                "notes": {
+                    "type": "string",
+                    "description":"Any additional information available for the enumeration group."
+                }
+            }
+        },
+        "Enumerations": {
+            "id": "enumeration",
+            "properties": {                
+                "Values": {
+                    "items": {
+                        "$ref": "EnumMembers"
+                    },
+                    "type": "LIST"
+                },
+                "ErrorCode": {
+                    "type": "int"
+                }
+            }
+        },
+        "EnumMembers": {
+            "name": "Groups",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description":"The name of the enumeration."
+                },
+                "value": {
+                    "type": "string",
+                    "description":"The value of the enumeration."
+                }
+            }
+        }
+    }
+}

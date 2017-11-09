@@ -1,0 +1,248 @@
+{
+    "apiVersion": "1.0",
+    "swaggerVersion": "1.1",
+    "basePath": "https://localhost:1611/api/1",
+    "resourcePath": "/cmdb",
+    "apis": [                
+        {
+            "path": "/cmdb/import",
+            "description": "Retrieve cmdb data and save in a file",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Retrieve cmdb data and save in a file",
+                    "notes": "This operation verifies if the export that is executed by another function has terminated. It loops until the final status of export terminated is returned.",
+                    "responseClass": "cmdbDataResult: This class returns the result of the Client Management database export made available for other external integrations.",
+                    "nickname": "getCmdbImport",
+                    "parameters": [
+                        {
+                            "name": "datafile",
+                            "description": "The name and full path of the database file into which the Client Management data are to be exported.",
+                            "paramType": "query", 
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "externalLogin",
+                            "description": "The login name of the external integration administrator (say, footprint user) who will execute the operation.",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/cmdb/import",
+            "description": "Launch Client Management cmdb data export",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Launch Client Management cmdb data export",
+                    "notes": "This operation launches the data export of a specific BMC Client Management view, creates the output path and file into which the requested data is exported and makes it available for import into the database of an external integration, such as BMC FootPrints Service Core or BMC Remedyforce.",
+                    "responseClass": "CmdbExportResult: This class returns the result of a database operation.",
+                    "nickname": "importCmdbData",
+                    "parameters": [                        
+						{
+                            "name": "language",
+                            "description": "The language into which the internal Client Management keywords are to be translated for the import, which may be either English, American, Francais, Deutsch, Japanese, Espanol or Brasileiro. Select the desired value from the drop-down box.",
+                            "paramType": "query",
+                            "defaultValue": "English",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "English",
+                                    "Espanol",
+                                    "Deutsch",
+                                    "American",
+                                    "Japanese",
+                                    "Francais",
+                                    "Brasileiro"
+                                ]
+                            },
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "offset",
+                            "description": "The offset from where on to start displaying the entries. Leave this field empty together with the count field to display all entries.",
+                            "paramType": "query",
+                            "defaultValue": 0,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "count",
+                            "description": "The number of software entries to display at a time. Leave this field empty together with the offset field to display all entries.",
+                            "paramType": "query",
+                            "defaultValue": 100,
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "externalLogin",
+                            "description": "The login name of the external integration administrator (say, footprint user) who will execute the operation.",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "cmdbData",
+                            "description": "Descriptive Snippet",
+                            "paramType": "body",                            
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "CmdbObject"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/cmdb/datafile",
+            "description": "Delete Client Management cmdb data file",
+            "operations": [
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete Client Management cmdb data file",
+                    "notes": "This operation deletes a BMC Client Management database file after its data was imported into the external integration database.",
+                    "responseClass": "CmdbOperationResult: This class returns the result of a database operation.",
+                    "nickname": "deleteCmdbData",
+                    "parameters": [
+                        {
+                            "name": "datafile",
+                            "description": "The name and path of the database file to be deleted.",
+                            "paramType": "query", 
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "externalLogin",
+                            "description": "The login name of the external integration administrator (say, footprint user) who will execute the operation.",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid data provided."
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {        
+        "cmdbDataResult": {
+            "id": "cmdbDataResult",
+            "properties": {
+                "Available": {
+                    "type": "boolean",
+                    "description" : "Indicates if the new Client Management data record is now available for use in the external integration database."
+                },
+                "ErrorCode": {
+                    "type": "int",
+                    "description" : "The error code returned by the operation if the operation failed or 0 for a successful operation."
+                }
+            }
+        },
+        "CmdbOperationResult": {
+            "id": "CmdbOperationResult",
+            "properties": {
+                "ErrorCode": {
+                    "type": "int",
+                    "description" : "The error code returned by the operation if the operation failed or 0 for a successful operation."
+                }
+            }
+        },
+        "CmdbExportResult": {
+            "id": "CmdbExportResult",
+            "properties": {
+                "Url": {
+                    "type": "string",
+                    "description" : "The Url to download the database file."
+                },
+                "FileName":
+                {
+                    "type": "string",
+                    "description" : "The name and relative path of the database file."
+                },
+                "DeviceID":{
+                    "type": "Array",
+                    "description" : "The list of Device ids that were deleted since the last generated export file ."
+                },
+                "ErrorCode": {
+                    "type": "int",
+                    "description" : "The error code returned by the operation if the operation failed or 0 for a successful operation."
+                }
+            }
+        },
+        "CmdbObject": {
+            "id": "CmdbObject",
+            "description": "This class is used in the body of the POST /cmdb/import operation to provide the external integration with all required import information.",
+            "properties": {
+                "lastImportTime": {
+                    "type": "int",
+                    "description" : "The timestamp of the last import of the same data, to allow for the possibility of only importing changed data at the next import."
+                },
+                "view": {
+                    "allowableValues": {
+                        "valueType": "LIST",
+                        "values": [
+                                    "V_CMDB_Device", 
+                                    "V_CMDB_FAM", 
+                                    "V_CMDB_Licenses",
+                                    "V_CMDB_NetworkRelation",
+                                    "V_CMDB_Software", 
+                                    "V_CMDB_SoftwareCatalog",
+                                    "V_CMDB_SoftwareRel", 
+                                    "V_CMDB_SecurityProductsRel",
+                                    "V_CMDB_SecurityProducts", 
+                                    "V_CMDB_SoftwareCatalogRel",
+                                    "V_CMDB_VIM"
+                                ]
+                            },
+                    "type": "string",
+                    "description" : "The view of the target external integration into which the Client Management data are to be imported."
+                },
+                   "types": {
+                    "items": {
+                        "$ref": "string"
+                    },
+                    "type": "Array",
+                    "description" : "The types of devices if the data is not applicable to all devices."
+                },
+                "groupIds": {
+                    "items": {
+                        "$ref": "int"
+                    },
+                    "type": "Array",
+                    "description" : "The ids of device groups, if the available data is only to be imported for one or more specific device groups."
+                }
+            }
+        }
+    }
+}
